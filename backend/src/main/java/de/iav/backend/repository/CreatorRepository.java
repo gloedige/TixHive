@@ -1,10 +1,10 @@
 package de.iav.backend.repository;
 
-import de.iav.backend.model.TicketCreator;
+import de.iav.backend.model.Creator;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TicketCreatorRepository extends MongoRepository <TicketCreator, String> {
+public interface CreatorRepository extends MongoRepository <Creator, String> {
 
 }
