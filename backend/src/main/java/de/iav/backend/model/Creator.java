@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.List;
 @Document(collation = "ticketCreators")
-public record TicketCreator(
+public record Creator(
     @MongoId
     String ticketCreatorId,
     String firstname,
