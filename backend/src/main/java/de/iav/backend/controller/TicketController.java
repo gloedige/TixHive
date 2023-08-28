@@ -1,7 +1,6 @@
 package de.iav.backend.controller;
 
 import de.iav.backend.model.TicketRequestDTO;
-import de.iav.backend.model.TicketResponseDTO;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.service.TicketService;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +13,9 @@ import java.util.Optional;
 @RequestMapping("/api/tixhive")
 public class TicketController {
     private final TicketService ticketService;
-    private TicketResponseDTO responseDTO = null;
 
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
-        this.responseDTO = responseDTO;
     }
 
     @GetMapping
@@ -43,9 +40,7 @@ public class TicketController {
     }
     @PostMapping
     public Ticket addTicket(@RequestBody TicketRequestDTO ticketInfo){
-        Ticket addedTicket = ticketService.addTicket(ticketInfo);
-
-        return addedTicket;//convertToTicketResponseDTO(addedTicket);
+        return ticketService.addTicket(ticketInfo);
     }
     @PutMapping("/{id}")
     public Ticket updateTicketById(@PathVariable String id, @RequestBody Ticket ticketToUpdate){
@@ -57,17 +52,4 @@ public class TicketController {
     }
 
 
-    private TicketResponseDTO convertToTicketResponseDTO(Ticket ticket) {
-
-        // Set properties from the ticket entity to the response DTO
-        // ...
-        return new TicketResponseDTO(
-                ticket.id(),
-                ticket.subject(),
-                ticket.priority(),
-                ticket.status(),
-                ticket.text(),
-                ticket.creationDate()
-        );
-    }
 }
