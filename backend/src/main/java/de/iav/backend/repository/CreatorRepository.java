@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface CreatorRepository extends MongoRepository <Creator, String> {
+    Creator findByTicketCreatorId(String id);
     Optional<Ticket> findAllByTicketCreatorId (String creatorId);
     List<Creator> findAllByLastnameOrFirstname (String name);
 }

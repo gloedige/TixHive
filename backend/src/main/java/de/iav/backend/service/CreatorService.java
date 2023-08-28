@@ -3,11 +3,10 @@ package de.iav.backend.service;
 import de.iav.backend.model.Creator;
 import de.iav.backend.model.CreatorDTO;
 import de.iav.backend.model.Ticket;
-import de.iav.backend.model.TicketRequestDTO;
 import de.iav.backend.repository.CreatorRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -23,8 +22,8 @@ public class CreatorService {
     }
 
     public List<Creator> listAllCreator() {return creatorRepository.findAll();}
-    public Optional<Creator> getCreatorById(String id) {
-        return creatorRepository.findById(id);
+    public Creator getCreatorById(String id) {
+        return creatorRepository.findByTicketCreatorId(id);
     }
     public List<Creator> getAllCreatorByName(String name){
         return creatorRepository.findAllByLastnameOrFirstname(name);
