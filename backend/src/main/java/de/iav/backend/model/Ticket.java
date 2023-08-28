@@ -1,13 +1,12 @@
 package de.iav.backend.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
-@Document(collation = "tickets")
+
 public record Ticket(
-        @MongoId
-        String ticketId,
+        @Id
+        String id,
         String subject,
         String priority,
         String status,
