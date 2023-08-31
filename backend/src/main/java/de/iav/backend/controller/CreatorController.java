@@ -29,7 +29,7 @@ public class CreatorController {
     @GetMapping("/{id}")
     public Creator getCreatorById(@PathVariable String id){return creatorService.getCreatorById(id);}
     @GetMapping("/name/{name}")
-    public List<Creator> getAllCreatorByName(@PathVariable String name){return creatorService.getAllCreatorByName(name);}
+    public List<Creator> getAllCreatorByName(@PathVariable String name){return creatorService.getAllCreatorByName(name, name);}
     @GetMapping("/ticket/{id}")
     public Optional<Ticket> listAllTicketByCreatorId(@PathVariable String id){
         return creatorService.listAllTicketByCreatorId(id);

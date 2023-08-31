@@ -23,10 +23,10 @@ public class CreatorService {
 
     public List<Creator> listAllCreator() {return creatorRepository.findAll();}
     public Creator getCreatorById(String id) {
-        return creatorRepository.findByTicketCreatorId(id);
+        return creatorRepository.findCreatorByTicketCreatorId(id);
     }
-    public List<Creator> getAllCreatorByName(String name){
-        return creatorRepository.findAllByLastnameOrFirstname(name);
+    public List<Creator> getAllCreatorByName(String firstname, String lastname){
+        return creatorRepository.findCreatorsByFirstnameOrLastname(firstname, lastname);
     }
     public Optional<Ticket> listAllTicketByCreatorId(String id){
         return creatorRepository.findAllByTicketCreatorId(id);
