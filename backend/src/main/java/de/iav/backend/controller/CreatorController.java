@@ -44,7 +44,10 @@ public class CreatorController {
     public Creator addTicketToCreator(@PathVariable String creatorId,@PathVariable String ticketId){
         Creator creator = getCreatorById(creatorId);
         Ticket ticket = ticketRepository.findById(ticketId).orElseThrow();
-        List<Ticket>newTicketList = new ArrayList<>(creator.tickets());
+        List<Ticket>newTicketList = creator.tickets();
+        if(newTicketList == null) {
+            newTicketList = new ArrayList<>();
+        }
         newTicketList.add(ticket);
 
         return creatorRepository.save(new Creator(
