@@ -1,6 +1,6 @@
 package de.iav.backend.controller;
 
-import de.iav.backend.model.AppUser;
+import de.iav.backend.security.AppUser;
 import de.iav.backend.dto.AppUserDTO;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.repository.AppUserRepository;
@@ -24,7 +24,7 @@ public class AppUserController {
         this.appUserRepository = appUserRepository;
     }
     @GetMapping
-    public List<AppUser> listAllAppUser(){return appUserService.listAllAppUser();}
+    public List<AppUser> listAllAppUser(){return appUserService.listAllAppUser();} //TODO Method nicht relevant
     @GetMapping("/{id}")
     public AppUser getAppUserById(@PathVariable String id){return appUserService.getAppUserById(id);}
     @GetMapping("/email/{email}")

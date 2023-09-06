@@ -1,5 +1,6 @@
-package de.iav.backend.model;
+package de.iav.backend.security;
 
+import de.iav.backend.model.Ticket;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.MongoId;
