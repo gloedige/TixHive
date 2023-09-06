@@ -4,9 +4,9 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.List;
-public record Creator(
+public record AppUser(
     @MongoId
-    String ticketCreatorId,
+    String ticketAppUserId,
     String firstname,
     String lastname,
     @DBRef
