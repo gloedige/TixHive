@@ -28,7 +28,7 @@ public class AppUserController {
     @GetMapping("/{id}")
     public AppUser getAppUserById(@PathVariable String id){return appUserService.getAppUserById(id);}
     @GetMapping("/email/{email}")
-    public List<AppUser> getAllAppUserByName(@PathVariable String email){return appUserService.getAllAppUserByEmail(email);}
+    public Optional<AppUser> getAllAppUserByEmail(@PathVariable String email){return appUserService.getAppUserByEmail(email);}
     @GetMapping("/ticket/{id}")
     public Optional<Ticket> listAllTicketByAppUserId(@PathVariable String id){
         return appUserService.listAllTicketByAppUserId(id);
