@@ -1,6 +1,6 @@
 package de.iav.backend.controller;
 
-import de.iav.backend.model.TicketRequestDTO;
+import de.iav.backend.dto.TicketRequestDTO;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.service.TicketService;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package de.iav.backend.model;
+package de.iav.backend.dto;
 
 import lombok.Getter;
 
