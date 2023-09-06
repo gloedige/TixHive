@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface AppUserRepository extends MongoRepository <AppUser, String> {
-    AppUser findAppUserByTicketAppUserId(String id);
-    Optional<Ticket> findAllByTicketAppUserId (String creatorId);
-    List<AppUser> findAppUsersByFirstnameOrLastname (String firstname, String lastname);
+    AppUser findAppUserByAppUserId(String id);
+    Optional<Ticket> findAllByAppUserId (String creatorId);
+    List<AppUser> findAppUsersByEmail (String email);
 }

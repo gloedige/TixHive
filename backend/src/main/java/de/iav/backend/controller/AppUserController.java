@@ -27,8 +27,8 @@ public class AppUserController {
     public List<AppUser> listAllAppUser(){return appUserService.listAllAppUser();}
     @GetMapping("/{id}")
     public AppUser getAppUserById(@PathVariable String id){return appUserService.getAppUserById(id);}
-    @GetMapping("/name/{name}")
-    public List<AppUser> getAllAppUserByName(@PathVariable String name){return appUserService.getAllAppUserByName(name, name);}
+    @GetMapping("/email/{email}")
+    public List<AppUser> getAllAppUserByName(@PathVariable String email){return appUserService.getAllAppUserByEmail(email);}
     @GetMapping("/ticket/{id}")
     public Optional<Ticket> listAllTicketByAppUserId(@PathVariable String id){
         return appUserService.listAllTicketByAppUserId(id);
@@ -50,9 +50,10 @@ public class AppUserController {
         newTicketList.add(ticket);
 
         return appUserRepository.save(new AppUser(
-                appUser.ticketAppUserId(),
-                appUser.firstname(),
-                appUser.lastname(),
+                appUser.appUserId(),
+                appUser.email(),
+                appUser.password(),
+                appUser.role(),
                 newTicketList
         ));
     }

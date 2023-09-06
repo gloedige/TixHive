@@ -5,8 +5,9 @@ import lombok.Getter;
 import java.util.List;
 @Getter
 public class AppUserDTO {
-    private String firstname;
-    private String lastname;
+    private String email;
+    private String password;
+    private AppUserRole role;
     List<Ticket> tickets;
 
 

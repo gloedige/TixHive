@@ -22,13 +22,13 @@ public class AppUserService {
 
     public List<AppUser> listAllAppUser() {return appUserRepository.findAll();}
     public AppUser getAppUserById(String id) {
-        return appUserRepository.findAppUserByTicketAppUserId(id);
+        return appUserRepository.findAppUserByAppUserId(id);
     }
-    public List<AppUser> getAllAppUserByName(String firstname, String lastname){
-        return appUserRepository.findAppUsersByFirstnameOrLastname(firstname, lastname);
+    public List<AppUser> getAllAppUserByEmail(String email){
+        return appUserRepository.findAppUsersByEmail(email);
     }
     public Optional<Ticket> listAllTicketByAppUserId(String id){
-        return appUserRepository.findAllByTicketAppUserId(id);
+        return appUserRepository.findAllByAppUserId(id);
     }
     public AppUser addAppUser(AppUserDTO appUserRequest)
     {
@@ -48,8 +48,9 @@ public class AppUserService {
     private AppUser convertToEntity(AppUserDTO requestDTO) {
         return new AppUser(
                 idService.generateId(),
-                requestDTO.getFirstname(),
-                requestDTO.getLastname(),
+                requestDTO.getEmail(),
+                requestDTO.getPassword(),
+                requestDTO.getRole(),
                 requestDTO.getTickets()
                 );
     }
