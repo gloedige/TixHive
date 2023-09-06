@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import java.util.List;
 @Getter
-public class CreatorDTO {
+public class AppUserDTO {
     private String firstname;
     private String lastname;
     List<Ticket> tickets;
