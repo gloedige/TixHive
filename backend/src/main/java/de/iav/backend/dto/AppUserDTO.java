@@ -1,6 +1,6 @@
 package de.iav.backend.dto;
 
-import de.iav.backend.model.AppUserRole;
+import de.iav.backend.security.AppUserRole;
 import de.iav.backend.model.Ticket;
 import lombok.Getter;
 

@@ -1,6 +1,6 @@
 package de.iav.backend.service;
 
-import de.iav.backend.model.AppUser;
+import de.iav.backend.security.AppUser;
 import de.iav.backend.dto.AppUserDTO;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.repository.AppUserRepository;
