@@ -1,5 +1,6 @@
 package de.iav.backend.model;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -9,6 +10,7 @@ public record AppUser(
     String appUserId,
     String email,
     String password,
+    @Indexed(unique = true)
     AppUserRole role,
     @DBRef
     List<Ticket> tickets

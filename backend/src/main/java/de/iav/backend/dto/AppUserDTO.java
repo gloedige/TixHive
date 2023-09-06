@@ -1,5 +1,7 @@
-package de.iav.backend.model;
+package de.iav.backend.dto;
 
+import de.iav.backend.model.AppUserRole;
+import de.iav.backend.model.Ticket;
 import lombok.Getter;
 
 import java.util.List;

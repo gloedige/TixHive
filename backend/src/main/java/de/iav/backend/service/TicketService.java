@@ -1,6 +1,6 @@
 package de.iav.backend.service;
 
-import de.iav.backend.model.TicketRequestDTO;
+import de.iav.backend.dto.TicketRequestDTO;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.repository.TicketRepository;
 import org.springframework.stereotype.Service;
