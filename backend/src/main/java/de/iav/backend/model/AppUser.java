@@ -6,9 +6,10 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import java.util.List;
 public record AppUser(
     @MongoId
-    String ticketAppUserId,
-    String firstname,
-    String lastname,
+    String appUserId,
+    String email,
+    String password,
+    AppUserRole role,
     @DBRef
     List<Ticket> tickets
 ) {
