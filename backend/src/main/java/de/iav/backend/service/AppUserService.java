@@ -1,19 +1,26 @@
 package de.iav.backend.service;
+package de.iav.backend.security;
 
 import de.iav.backend.security.AppUser;
 import de.iav.backend.dto.AppUserDTO;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.repository.AppUserRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-public class AppUserService {
+public class AppUserService implements UserDetailsService{
     private final AppUserRepository appUserRepository;
     private final IdService idService;
+    private final PasswordEncoder passwordEncoder;
 
     public AppUserService(AppUserRepository appUserRepository, IdService idService) {
         this.appUserRepository = appUserRepository;
@@ -24,7 +31,7 @@ public class AppUserService {
     public AppUser getAppUserById(String id) {
         return appUserRepository.findAppUserByAppUserId(id);
     }
-    public List<AppUser> getAllAppUserByEmail(String email){
+    public Optional<AppUser> getAppUserByEmail(String email){
         return appUserRepository.findAppUsersByEmail(email);
     }
     public Optional<Ticket> listAllTicketByAppUserId(String id){
@@ -53,5 +60,16 @@ public class AppUserService {
                 requestDTO.getRole(),
                 requestDTO.getTickets()
                 );
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AppUser appUser = appUserRepository.findAppUsersByEmail(username)
+                .orElseThrow(()-> new UsernameNotFoundException("user not found!"));
+        return User.builder()
+                .username(appUser.email())
+                .password(appUser.password())
+                .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + appUser.role().name())))
+                .build();
     }
 }
