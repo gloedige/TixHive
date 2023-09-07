@@ -5,6 +5,7 @@ import de.iav.backend.security.AppUser;
 import de.iav.backend.dto.AppUserDTO;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.repository.AppUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.User;
@@ -21,7 +22,7 @@ public class AppUserService implements UserDetailsService{
     private final AppUserRepository appUserRepository;
     private final IdService idService;
     //private final PasswordEncoder passwordEncoder;
-
+    @Autowired
     public AppUserService(AppUserRepository appUserRepository, IdService idService) {
         this.appUserRepository = appUserRepository;
         this.idService = idService;
