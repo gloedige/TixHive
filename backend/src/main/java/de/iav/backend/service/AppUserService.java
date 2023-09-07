@@ -1,5 +1,5 @@
 package de.iav.backend.service;
-package de.iav.backend.security;
+//package de.iav.backend.security;
 
 import de.iav.backend.security.AppUser;
 import de.iav.backend.dto.AppUserDTO;
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class AppUserService implements UserDetailsService{
     private final AppUserRepository appUserRepository;
     private final IdService idService;
-    private final PasswordEncoder passwordEncoder;
+    //private final PasswordEncoder passwordEncoder;
 
     public AppUserService(AppUserRepository appUserRepository, IdService idService) {
         this.appUserRepository = appUserRepository;
@@ -37,7 +37,7 @@ public class AppUserService implements UserDetailsService{
     public Optional<Ticket> listAllTicketByAppUserId(String id){
         return appUserRepository.findAllByAppUserId(id);
     }
-    public AppUser addAppUser(AppUserDTO appUserRequest)
+    public AppUser addAppUser(AppUserDTO appUserRequest) //TODO Methode umbenennen in register und anpassen!
     {
         AppUser newAppUser = convertToEntity(appUserRequest);
         return appUserRepository.save(newAppUser);
