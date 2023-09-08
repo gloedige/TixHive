@@ -21,7 +21,7 @@ public class AddTicketController implements Initializable {
     @FXML
     private TextField subjectOfNewTicket;
     @FXML
-    private ChoiceBox priorityOfNewTicket;
+    private ChoiceBox<String> priorityOfNewTicket = new ChoiceBox<>();
     @FXML
     private TextField contentOfNewTicket;
     private String ticketId;
@@ -35,10 +35,10 @@ public class AddTicketController implements Initializable {
 
             TicketWithoutId newTicket = new TicketWithoutId(
                     subjectOfNewTicket.getText(),
-                    priorityOfNewTicket.getValue().toString(),
+                    priorityOfNewTicket.getValue(),
                     "open",
                     contentOfNewTicket.getText(),
-                    null);
+                    "1");
             ticketService.addTicket(newTicket);
 
         //sceneSwitchService.saveNewTicketAndSwitchToTicketList(event);
