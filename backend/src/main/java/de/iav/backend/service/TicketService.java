@@ -59,6 +59,7 @@ public class TicketService {
                 requestDTO.getPriority(),
                 requestDTO.getStatus(),
                 requestDTO.getText(),
+                requestDTO.getCreatorId(),
                 creationDate);
     }
 }
