@@ -8,6 +8,7 @@ public class TicketRequestDTO{
         private String priority;
         private String status;
         private String text;
+        private String creatorId;
 
     public void setSubject(String subject) {
         this.subject = subject;
@@ -23,5 +24,8 @@ public class TicketRequestDTO{
 
     public void setText(String text) {
         this.text = text;
+    }
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 }

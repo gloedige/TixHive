@@ -11,6 +11,7 @@ public record Ticket(
         String priority,
         String status,
         String text,
+        String creatorId,
         LocalDateTime creationDate
 ) {
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/tixhive")
+@RequestMapping("/api/tixhive/ticket")
 public class TicketController {
     private final TicketService ticketService;
 
