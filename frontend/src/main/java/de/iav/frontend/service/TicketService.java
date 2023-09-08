@@ -1,6 +1,11 @@
 package de.iav.frontend.service;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import de.iav.frontend.exception.CustomJsonProcessingException;
+import de.iav.frontend.model.Ticket;
+import de.iav.frontend.model.TicketWithoutId;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -23,5 +28,30 @@ public class TicketService {
             instance = new TicketService();
         }
         return instance;
+    }
+
+    public void addTicket(TicketWithoutId newTicket) {
+        try{
+            String requestBody = objectMapper.writeValueAsString(newTicket);
+            HttpRequest request = HttpRequest.newBuilder()//.header(COOKIE, JSESSIONID + LoginService.getInstance().SessionId())
+                    .uri(URI.create(TICKET_BASE_URL + "/ticket"))
+                    .header("Content-Type", HEADER_VAR)
+                    //.header(COOKIE, JSESSIONID + LoginService.getInstance().getJSessionId())
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(HttpResponse::body)
+                    .thenApply(this::mapToTicket)
+                    .join();
+        }catch (JsonProcessingException e){
+            throw new CustomJsonProcessingException("Could not add ticket!", e);
+        }
+    }
+    private Ticket mapToTicket(String json){
+        try{
+            return objectMapper.readValue(json, Ticket.class);
+        }catch (JsonProcessingException e){
+            throw new CustomJsonProcessingException("Could not map to ticket!", e);
+        }
     }
 }
