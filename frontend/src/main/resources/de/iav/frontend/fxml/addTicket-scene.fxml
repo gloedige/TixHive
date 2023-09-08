@@ -27,7 +27,7 @@
             <children>
                <ImageView fitHeight="64.0" fitWidth="192.0" layoutX="14.0" preserveRatio="true" y="5.0">
                   <image>
-                     <Image url="@../pictures/Bildschirmfoto%202023-08-17%20um%2013.16.45.png" />
+                     <Image url="@../pictures/Bildschirmfoto2023-08-17um13.16.45.png" />
                   </image>
                </ImageView>
             </children>
