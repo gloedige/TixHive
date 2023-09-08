@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.HelloController">
+<VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.AddTicketController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
   </padding>
@@ -27,7 +27,7 @@
             <children>
                <ImageView fitHeight="64.0" fitWidth="192.0" layoutX="14.0" preserveRatio="true" y="5.0">
                   <image>
-                     <Image url="@../pictures/Bildschirmfoto%202023-08-17%20um%2013.16.45.png" />
+                     <Image url="@../pictures/Bildschirmfoto2023-08-17um13.16.45.png" />
                   </image>
                </ImageView>
             </children>
@@ -44,8 +44,8 @@
          <Font name="Apple Symbols" size="45.0" />
       </font>
    </Label>
-   <TextField promptText="subject" />
-   <ChoiceBox fx:id="priorityChoiceBox" prefHeight="25.0" prefWidth="344.0" />
-   <TextField alignment="TOP_LEFT" prefHeight="396.0" prefWidth="320.0" promptText="text" />
-  <Button onAction="#onHelloButtonClick" prefHeight="30.0" prefWidth="338.0" text="add" />
+   <TextField fx:id="subjectOfNewTicket" promptText="subject" />
+   <ChoiceBox fx:id="priorityOfNewTicket" prefHeight="25.0" prefWidth="344.0" />
+   <TextField fx:id="contentOfNewTicket" alignment="TOP_LEFT" prefHeight="396.0" prefWidth="320.0" promptText="text" />
+  <Button onAction="#addTicketButton" prefHeight="30.0" prefWidth="338.0" text="add" />
 </VBox>
