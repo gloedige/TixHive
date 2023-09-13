@@ -61,23 +61,23 @@ jobs:
         with:
           host: capstone-project.de
           #Set App Name (replace "antimon" with "oxygen", "phosphorus", "mercury")
-          username: oxygen
+          username: muc-java-23-1-gerd
           password: ${{ secrets.SSH_PASSWORD }}
           #Set App Name (replace "antimon" with "oxygen", "phosphorus", "mercury")
           #Set dockerhub project (replace "sergejneuefische/javafx-student-db")
           #Set IP (replace "10.0.2.1" with "10.0.2.14", "10.0.2.15" or "10.0.2.16")
           script: |
-            docker stop oxygen
-            docker rm oxygen
-            docker run --pull=always --name oxygen -e=MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} --network capstones --ip 10.0.2.14 --restart always --detach gerdloedige/tixhive:latest
+            docker stop muc-java-23-1-gerd
+            docker rm muc-java-23-1-gerd
+            docker run --pull=always --name muc-java-23-1-gerd -e=MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} --network capstones --ip 10.0.6.3 --restart always --detach gerdloedige/tixhive:latest
             sleep 15s
-            docker logs oxygen
+            docker logs muc-java-23-1-gerd
 
       - name: Check the deployed service URL
         uses: jtalk/url-health-check-action@v3
         with:
           #Set App Name (replace "antimon" with "oxygen", "phosphorus", "mercury")
-          url: http://oxygen.capstone-project.de
+          url: https://muc-java-23-1-gerd.capstone-project.de
           max-attempts: 3
           retry-delay: 5s
           retry-all: true
