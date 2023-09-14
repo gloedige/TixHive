@@ -1,8 +1,6 @@
 package de.iav.backend.service;
 
-import de.iav.backend.model.Ticket;
 import de.iav.backend.repository.AppUserRepository;
-import de.iav.backend.repository.TicketRepository;
 import de.iav.backend.security.AppUser;
 import de.iav.backend.security.AppUserRole;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,12 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class AppUserServiceTest {
