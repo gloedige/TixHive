@@ -14,10 +14,12 @@ import java.util.Optional;
 public class TicketService {
     private final TicketRepository ticketRepository;
     private final IdService idService;
+    private final DateTimeService dateTimeService;
 
-    public TicketService(TicketRepository ticketRepository, IdService idService) {
+    public TicketService(TicketRepository ticketRepository, IdService idService, DateTimeService dateTimeService) {
         this.ticketRepository = ticketRepository;
         this.idService = idService;
+        this.dateTimeService = dateTimeService;
     }
     public List<Ticket> listAllTicket(){
         return ticketRepository.findAll();
@@ -51,8 +53,8 @@ public class TicketService {
     }
 
 
-    private Ticket convertToEntity(TicketRequestDTO requestDTO) {
-        LocalDateTime creationDate = LocalDateTime.now();
+    public Ticket convertToEntity(TicketRequestDTO requestDTO) {
+        LocalDateTime creationDate = dateTimeService.getCurrentDateTime();
         return new Ticket(
                 idService.generateId(),
                 requestDTO.getSubject(),
