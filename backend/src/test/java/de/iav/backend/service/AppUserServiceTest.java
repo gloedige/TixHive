@@ -53,32 +53,4 @@ class AppUserServiceTest {
         verify(appUserRepository, times(1)).findAll();
 
     }
-
-    @Test
-    void getAppUserById() {
-    }
-
-    @Test
-    void getAppUserByEmail() {
-    }
-
-    @Test
-    void listAllTicketByAppUserId() {
-    }
-
-    @Test
-    void addAppUser() {
-    }
-
-    @Test
-    void updateAppUserById() {
-    }
-
-    @Test
-    void deleteAppUserById() {
-    }
-
-    @Test
-    void loadUserByUsername() {
-    }
 }
