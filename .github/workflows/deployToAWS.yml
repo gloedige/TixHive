@@ -50,7 +50,7 @@ jobs:
           push: true
           #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
           tags: gerdloedige/tixhive:latest
-          context: .
+          context: ./backend
 
   deploy:
     runs-on: ubuntu-latest
