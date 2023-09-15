@@ -24,7 +24,6 @@ public class AddTicketController implements Initializable {
     private ChoiceBox<String> priorityOfNewTicket = new ChoiceBox<>();
     @FXML
     private TextField contentOfNewTicket;
-    private String ticketId;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,12 +39,5 @@ public class AddTicketController implements Initializable {
                     contentOfNewTicket.getText(),
                     "1");
             ticketService.addTicket(newTicket);
-
-        //sceneSwitchService.saveNewTicketAndSwitchToTicketList(event);
-
-
     }
-
-
-
 }
