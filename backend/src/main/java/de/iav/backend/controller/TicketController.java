@@ -3,20 +3,18 @@ package de.iav.backend.controller;
 import de.iav.backend.dto.TicketRequestDTO;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.service.TicketService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/tixhive/ticket")
 public class TicketController {
     private final TicketService ticketService;
-
-    public TicketController(TicketService ticketService) {
-        this.ticketService = ticketService;
-    }
 
     @GetMapping
     public List<Ticket> listAllTicket(){
