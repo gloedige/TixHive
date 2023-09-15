@@ -12,8 +12,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class TicketService {
-    public static final String COOKIE = "Cookie";
-    public static final String JSESSIONID = "JSESSIONID=";
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private static final String TICKET_BASE_URL = "http://localhost:8080/api/tixhive";
@@ -33,10 +31,9 @@ public class TicketService {
     public void addTicket(TicketWithoutId newTicket) {
         try{
             String requestBody = objectMapper.writeValueAsString(newTicket);
-            HttpRequest request = HttpRequest.newBuilder()//.header(COOKIE, JSESSIONID + LoginService.getInstance().SessionId())
+            HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(TICKET_BASE_URL + "/ticket"))
                     .header("Content-Type", HEADER_VAR)
-                    //.header(COOKIE, JSESSIONID + LoginService.getInstance().getJSessionId())
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
             httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
