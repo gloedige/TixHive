@@ -11,7 +11,7 @@ class DateTimeServiceTest {
         DateTimeService dateTimeService = new DateTimeService();
 
         //WHEN
-        java.time.LocalDateTime currentDateTime = dateTimeService.getCurrentDateTime();
+        LocalDateTime currentDateTime = dateTimeService.getCurrentDateTime();
 
         //THEN
         assertNotNull(currentDateTime);
