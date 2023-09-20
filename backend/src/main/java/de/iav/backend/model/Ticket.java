@@ -8,8 +8,8 @@ public record Ticket(
         @Id
         String id,
         String subject,
-        String priority,
-        String status,
+        TicketPriority priority,
+        TicketStatus status,
         String text,
         String creatorId,
         LocalDateTime creationDate
