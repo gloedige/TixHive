@@ -32,7 +32,7 @@ public class TicketService {
         try{
             String requestBody = objectMapper.writeValueAsString(newTicket);
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(TICKET_BASE_URL + "/ticket"))
+                    .uri(URI.create(TICKET_BASE_URL + "/tickets"))
                     .header("Content-Type", HEADER_VAR)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();

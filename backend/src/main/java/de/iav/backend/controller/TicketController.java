@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/tixhive/ticket")
+@RequestMapping("/api/tixhive/tickets")
 public class TicketController {
     private final TicketService ticketService;
     @PostMapping
