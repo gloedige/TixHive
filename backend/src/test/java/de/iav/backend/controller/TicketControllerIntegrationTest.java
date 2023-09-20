@@ -25,7 +25,6 @@ class TicketControllerIntegrationTest {
 
     @Test
     void testAddTicket_whenTicketExist_thenReturnStatusAndTicket() throws Exception {
-        // Create a TicketRequestDTO to send in the request
         TicketRequestDTO ticketRequestDTO = new TicketRequestDTO();
         ticketRequestDTO.setSubject("Test Subject");
         ticketRequestDTO.setPriority("High");
@@ -33,10 +32,8 @@ class TicketControllerIntegrationTest {
         ticketRequestDTO.setText("Test Text");
         ticketRequestDTO.setCreatorId("Test CreatorId");
 
-        // Convert the DTO to JSON
         String ticketRequestJson = objectMapper.writeValueAsString(ticketRequestDTO);
 
-        // Perform a POST request to the addTicket endpoint
         mockMvc.perform(post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(ticketRequestJson))
@@ -49,5 +46,4 @@ class TicketControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.creatorId").value("Test CreatorId"))
                 .andReturn();
     }
-
 }
