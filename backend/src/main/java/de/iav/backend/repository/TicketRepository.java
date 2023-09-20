@@ -9,7 +9,4 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends MongoRepository<Ticket, String> {
-    List<Ticket> findAllByPriorityOrderByPriority (String priority);
-    List<Ticket> findAllByStatusOrderByStatus (String status);
-    List<Ticket> findAllByCreationDateOrderByCreationDate (LocalDateTime creationDate);
 }
