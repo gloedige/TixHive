@@ -2,6 +2,8 @@ package de.iav.backend.service;
 
 import de.iav.backend.dto.TicketRequestDTO;
 import de.iav.backend.model.Ticket;
+import de.iav.backend.model.TicketPriority;
+import de.iav.backend.model.TicketStatus;
 import de.iav.backend.repository.TicketRepository;
 import org.junit.jupiter.api.Test;
 
@@ -22,16 +24,16 @@ class TicketServiceTest {
         //GIVEN
         TicketRequestDTO ticketRequestDTO = new TicketRequestDTO(
                 "subject1",
-                "priority1",
-                "status1",
+                TicketPriority.MEDIUM,
+                TicketStatus.OPEN,
                 "text1",
                 "creatorId1"
         );
         Ticket expectedTicket = new Ticket(
                 "SampleId",
                 "subject1",
-                "priority1",
-                "status1",
+                TicketPriority.MEDIUM,
+                TicketStatus.OPEN,
                 "text1",
                 "creatorId1",
                 LocalDateTime.of(2023, 9, 14, 16, 11, 11)
