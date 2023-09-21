@@ -27,12 +27,12 @@ class TicketControllerIntegrationTest {
 
     @Test
     void testAddTicket_whenTicketExist_thenReturnStatusAndTicket() throws Exception {
-        TicketRequestDTO ticketRequestDTO = new TicketRequestDTO();
-        ticketRequestDTO.setSubject("Test Subject");
-        ticketRequestDTO.setPriority(TicketPriority.HIGH);
-        ticketRequestDTO.setStatus(TicketStatus.OPEN);
-        ticketRequestDTO.setText("Test Text");
-        ticketRequestDTO.setCreatorId("Test CreatorId");
+        TicketRequestDTO ticketRequestDTO = new TicketRequestDTO(
+                "Test Subject",
+                TicketPriority.HIGH,
+                TicketStatus.OPEN,
+                "Test Text",
+                "Test CreatorId");
 
         String ticketRequestJson = objectMapper.writeValueAsString(ticketRequestDTO);
 
