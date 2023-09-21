@@ -2,8 +2,8 @@ package de.iav.frontend.model;
 
 public record TicketWithoutId (
         String subject,
-        String priority,
-        String status,
+        TicketPriority priority,
+        TicketStatus status,
         String text,
         String creatorId
 ){
