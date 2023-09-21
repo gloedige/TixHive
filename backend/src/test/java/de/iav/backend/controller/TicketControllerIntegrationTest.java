@@ -37,7 +37,7 @@ class TicketControllerIntegrationTest {
         private static final ObjectMapper objectMapper = new ObjectMapper();
 
         public static List<Ticket> parseTicketList(String json) throws IOException {
-            return objectMapper.readValue(json, new TypeReference<List<Ticket>>() {
+            return objectMapper.readValue(json, new TypeReference<>() {
             });
         }
     }
