@@ -1,5 +1,6 @@
 package de.iav.frontend.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.iav.frontend.exception.CustomJsonProcessingException;
@@ -10,6 +11,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 public class TicketService {
     private final HttpClient httpClient = HttpClient.newHttpClient();
@@ -44,11 +46,31 @@ public class TicketService {
             throw new CustomJsonProcessingException("Could not add ticket!", e);
         }
     }
+
+    public List<Ticket> listAllTickets() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(TICKET_BASE_URL + "/tickets"))
+                .GET()
+                .build();
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenApply(this::mapToTicketList)
+                .join();
+    }
     private Ticket mapToTicket(String json){
         try{
             return objectMapper.readValue(json, Ticket.class);
         }catch (JsonProcessingException e){
             throw new CustomJsonProcessingException("Could not map to ticket!", e);
+        }
+    }
+
+    private List<Ticket> mapToTicketList(String json) {
+        try {
+            return objectMapper.readValue(json, new TypeReference<>() {
+            });
+        } catch (JsonProcessingException e) {
+            throw new CustomJsonProcessingException("Failed to open ticket list!", e);
         }
     }
 }
