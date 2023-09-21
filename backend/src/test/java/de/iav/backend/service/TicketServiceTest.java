@@ -21,7 +21,7 @@ class TicketServiceTest {
     private final TicketService ticketService = new TicketService(ticketRepository, idService, dateTimeService);
 
     @Test
-    void addTicket_whenTicketWasAddedSuccessfully_thanReturnTicket() {
+    void addTicket_whenTicketWasAddedSuccessfully_thenReturnTicket() {
         //GIVEN
         TicketRequestDTO ticketRequestDTO = new TicketRequestDTO(
                 "subject1",
@@ -54,7 +54,7 @@ class TicketServiceTest {
     }
 
     @Test
-    void listAllTicket_whenTicketlistNotEmpty_thanReturnTicketList() {
+    void listAllTicket_whenTicketListNotEmpty_thenReturnTicketList() {
         //GIVEN
         Ticket ticket1 = new Ticket(
                 "SampleId1",
