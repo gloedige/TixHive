@@ -7,7 +7,6 @@ import de.iav.frontend.service.TicketService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
@@ -17,8 +16,7 @@ import java.util.ResourceBundle;
 public class AddTicketController implements Initializable {
 
     private final TicketService ticketService = TicketService.getInstance();
-    @FXML
-    private Button addTicketButton;
+
     @FXML
     private TextField subjectOfNewTicket;
     @FXML
