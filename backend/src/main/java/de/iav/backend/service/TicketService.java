@@ -20,18 +20,19 @@ public class TicketService {
     }
     public Ticket addTicket(TicketRequestDTO ticketRequest)
     {
-        Ticket newticket = convertToEntity(ticketRequest);
+        Ticket newticket = createTicket(ticketRequest);
         return ticketRepository.save(newticket);
     }
-    public Ticket convertToEntity(TicketRequestDTO requestDTO) {
+
+    public Ticket createTicket(TicketRequestDTO ticketRequest) {
         LocalDateTime creationDate = dateTimeService.getCurrentDateTime();
         return new Ticket(
                 idService.generateId(),
-                requestDTO.getSubject(),
-                requestDTO.getPriority(),
-                requestDTO.getStatus(),
-                requestDTO.getText(),
-                requestDTO.getCreatorId(),
+                ticketRequest.subject(),
+                ticketRequest.priority(),
+                ticketRequest.status(),
+                ticketRequest.text(),
+                ticketRequest.creatorId(),
                 creationDate);
     }
 }
