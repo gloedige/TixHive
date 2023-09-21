@@ -4,6 +4,7 @@ module de.iav.frontend {
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.datatype.jsr310;
+    requires lombok;
     opens de.iav.frontend.model;
     exports de.iav.frontend.model;
     opens de.iav.frontend.controller to javafx.fxml;
