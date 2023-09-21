@@ -6,6 +6,7 @@ import de.iav.backend.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class TicketService {
@@ -22,6 +23,10 @@ public class TicketService {
     {
         Ticket newticket = createTicket(ticketRequest);
         return ticketRepository.save(newticket);
+    }
+
+    public List<Ticket> listAllTicket() {
+        return ticketRepository.findAll();
     }
 
     public Ticket createTicket(TicketRequestDTO ticketRequest) {
