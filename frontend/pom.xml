@@ -13,10 +13,26 @@
          <sonar.organization>gloedige</sonar.organization>
          <sonar.host.url>https://sonarcloud.io</sonar.host.url>
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-         <junit.version>5.9.2</junit.version>  
+        <junit.version>5.9.2</junit.version>
+        <java.version>17</java.version>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.13.4.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.14.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>2.14.2</version>
+    </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
@@ -61,7 +77,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>de.iav.frontend/de.iav.frontend.HelloApplication</mainClass>
+              <mainClass>de.iav.frontend/de.iav.frontend.TixHiveApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
