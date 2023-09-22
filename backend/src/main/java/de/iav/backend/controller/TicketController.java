@@ -22,4 +22,9 @@ public class TicketController {
     public List<Ticket> listAllTicket() {
         return ticketService.listAllTicket();
     }
+
+    @PutMapping("/{id}")
+    public Ticket updateTicketById(@PathVariable String id, @RequestBody TicketRequestDTO ticketToUpdate) {
+        return ticketService.updateTicketById(id, ticketToUpdate);
+    }
 }
