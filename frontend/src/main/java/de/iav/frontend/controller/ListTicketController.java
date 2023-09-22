@@ -21,9 +21,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ListTicketController {
-    private Scene scene;
-    private Parent root;
-    private Stage stage;
     private final TicketService ticketService = TicketService.getInstance();
 
     @FXML
@@ -51,9 +48,9 @@ public class ListTicketController {
     @FXML
     protected void switchToAddTicketScene(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/addTicket-scene.fxml"));
-        root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
     }
 }
