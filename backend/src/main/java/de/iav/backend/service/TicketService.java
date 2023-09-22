@@ -34,7 +34,7 @@ public class TicketService {
     public Ticket updateTicketById(String ticketId, TicketRequestDTO ticketToUpdate) {
         Optional<Ticket> existingTicket = ticketRepository.findById(ticketId);
         if (existingTicket.isPresent()) {
-            Ticket updatetTicket = new Ticket(
+            Ticket updatedTicket = new Ticket(
                     existingTicket.get().id(),
                     ticketToUpdate.subject(),
                     ticketToUpdate.priority(),
@@ -43,7 +43,7 @@ public class TicketService {
                     ticketToUpdate.creatorId(),
                     existingTicket.get().creationDate()
             );
-            return ticketRepository.save(updatetTicket);
+            return ticketRepository.save(updatedTicket);
         }
         throw new NoSuchElementException("Element with " + ticketId + " not found!");
     }
