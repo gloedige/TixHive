@@ -42,13 +42,21 @@ public class AddTicketController implements Initializable {
         } else if (selectedValue.equals(TicketPriority.MEDIUM.toString())) {
             selectedPriority = TicketPriority.MEDIUM;
         } else selectedPriority = TicketPriority.HIGH;
+
         TicketWithoutId newTicket = new TicketWithoutId(
                     subjectOfNewTicket.getText(),
                     selectedPriority,
                     TicketStatus.OPEN,
                     contentOfNewTicket.getText(),
                     "1");
+
         ticketService.addTicket(newTicket);
-        sceneSwitchService.saveNewTicketSwitchToTicketListScene(event);
+
+        sceneSwitchService.switchToTicketListScene(event);
+    }
+
+    @FXML
+    public void switchToTicketListScene(ActionEvent event) throws IOException {
+        sceneSwitchService.switchToTicketListScene(event);
     }
 }
