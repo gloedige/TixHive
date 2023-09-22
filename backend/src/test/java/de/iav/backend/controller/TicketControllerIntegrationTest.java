@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.io.IOException;
@@ -75,5 +76,45 @@ class TicketControllerIntegrationTest {
         String responseJson = result.getResponse().getContentAsString();
         List<Ticket> tickets = TicketControllerJsonParser.parseTicketList(responseJson);
         Assertions.assertNotNull(tickets);
+    }
+
+    @Test
+    void testUpdateTicket_whenTicketIdExist_thenReturnUpdatedTicket() throws Exception {
+        TicketRequestDTO ticketRequestDTO = new TicketRequestDTO(
+                "Test Subject",
+                TicketPriority.HIGH,
+                TicketStatus.OPEN,
+                "Test Text",
+                "Test CreatorId");
+
+        String ticketRequestJson = objectMapper.writeValueAsString(ticketRequestDTO);
+
+        MvcResult result = mockMvc.perform(post(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(ticketRequestJson))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+        Ticket ticket = objectMapper.readValue(responseJson, Ticket.class);
+        TicketRequestDTO ticketRequestDTO2 = new TicketRequestDTO(
+                "Test Subject2",
+                TicketPriority.LOW,
+                TicketStatus.DONE,
+                "Test Text2",
+                "Test CreatorId2");
+        String ticketRequestJson2 = objectMapper.writeValueAsString(ticketRequestDTO2);
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + ticket.id())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(ticketRequestJson2))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.subject").value("Test Subject2")) // Check the response JSON
+                .andExpect(MockMvcResultMatchers.jsonPath("$.priority").value(TicketPriority.LOW.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(TicketStatus.DONE.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("Test Text2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.creatorId").value("Test CreatorId2"))
+                .andReturn();
     }
 }
