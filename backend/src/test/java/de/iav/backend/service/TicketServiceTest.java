@@ -84,4 +84,33 @@ class TicketServiceTest {
         verify(ticketRepository).findAll();
         assertEquals(expectedTicketList, addedTicketList);
     }
+
+    @Test
+    void updateTicket_whenTicketWithIdExist_thenReturnUpdatedTicket() {
+        //GIVEN
+        TicketRequestDTO ticketRequestDTO = new TicketRequestDTO(
+                "subject1",
+                TicketPriority.MEDIUM,
+                TicketStatus.OPEN,
+                "text1",
+                "creatorId1"
+        );
+        Ticket ticketToUpdate = new Ticket(
+                "SampleId1",
+                "subject1",
+                TicketPriority.MEDIUM,
+                TicketStatus.OPEN,
+                "text1",
+                "creatorId1",
+                LocalDateTime.of(2023, 9, 14, 16, 11, 11)
+        );
+        //WHEN
+        when(ticketRepository.findById("SampleId1")).thenReturn(java.util.Optional.of(ticketToUpdate));
+        when(ticketRepository.save(ticketToUpdate)).thenReturn(ticketToUpdate);
+        var updatedTicket = ticketService.updateTicketById("SampleId1", ticketRequestDTO);
+
+        //THEN
+        verify(ticketRepository).findById("SampleId1");
+        assertEquals(ticketToUpdate, updatedTicket);
+    }
 }
