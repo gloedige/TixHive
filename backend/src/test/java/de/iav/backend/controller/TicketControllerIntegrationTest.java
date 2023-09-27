@@ -98,19 +98,19 @@ class TicketControllerIntegrationTest {
 
         String responseJson = result.getResponse().getContentAsString();
         Ticket ticket = objectMapper.readValue(responseJson, Ticket.class);
-        TicketRequestDTO ticketRequestDTO2 = new TicketRequestDTO(
+        TicketRequestDTO ticketToUpdate = new TicketRequestDTO(
                 "Test Subject2",
                 TicketPriority.LOW,
                 TicketStatus.DONE,
                 "Test Text2",
                 "Test CreatorId2");
-        String ticketRequestJson2 = objectMapper.writeValueAsString(ticketRequestDTO2);
+        String ticketRequestJson2 = objectMapper.writeValueAsString(ticketToUpdate);
         mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + ticket.id())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(ticketRequestJson2))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.subject").value("Test Subject2")) // Check the response JSON
+                .andExpect(MockMvcResultMatchers.jsonPath("$.subject").value("Test Subject2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.priority").value(TicketPriority.LOW.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(TicketStatus.DONE.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("Test Text2"))
