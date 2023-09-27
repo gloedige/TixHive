@@ -34,8 +34,7 @@ public class UpdateTicketController implements Initializable {
     }
 
     public int getIndexOfPriorityChoiceBox(ChoiceBox<String> choiceBox, Ticket ticketToUpdate) {
-        // Find the index of the specified Ticket object in the ChoiceBox.
-        int selectedIndex = -1; // Default value if the item is not found.
+        int selectedIndex = -1;
         for (int i = 0; i < choiceBox.getItems().size(); i++) {
             String element = choiceBox.getItems().get(i);
             if (element.equals(ticketToUpdate.priority().toString())) {
@@ -57,6 +56,7 @@ public class UpdateTicketController implements Initializable {
     @FXML
     public void updateTicketAndSwitchToTicketListScene(ActionEvent event) throws IOException {
         String selectedPriorityValue = priorityOfTicketToBeUpdated.getValue();
+
         TicketPriority selectedPriority;
         if (selectedPriorityValue.equals(TicketPriority.LOW.toString())) {
             selectedPriority = TicketPriority.LOW;
