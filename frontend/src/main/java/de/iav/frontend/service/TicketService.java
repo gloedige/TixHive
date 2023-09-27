@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.iav.frontend.exception.CustomJsonProcessingException;
 import de.iav.frontend.model.Ticket;
+import de.iav.frontend.model.TicketToBeUpdated;
 import de.iav.frontend.model.TicketWithoutId;
 
 import java.net.URI;
@@ -58,7 +59,7 @@ public class TicketService {
                 .join();
     }
 
-    public Ticket updateTicketById(String id, Ticket ticketToBeUpdated) {
+    public Ticket updateTicketById(String id, TicketToBeUpdated ticketToBeUpdated) {
         try {
             String requestBody = objectMapper.writeValueAsString(ticketToBeUpdated);
             HttpRequest request = HttpRequest.newBuilder()
