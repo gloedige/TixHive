@@ -22,7 +22,9 @@ import java.util.List;
 
 public class ListTicketController {
     private final TicketService ticketService = TicketService.getInstance();
-
+    private Parent root;
+    private Stage stage;
+    private Scene scene;
     @FXML
     private TableView<Ticket> table;
     @FXML
@@ -44,13 +46,28 @@ public class ListTicketController {
 
         table.getItems().addAll(allTicket);
     }
-
     @FXML
     protected void switchToAddTicketScene(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/addTicket-scene.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        root = loader.load();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
         stage.setScene(scene);
+    }
+
+    @FXML
+    public void switchToUpdateTicketScene(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/updateTicket-scene.fxml"));
+        root = loader.load();
+
+        Ticket ticketToUpdate = table.getSelectionModel().getSelectedItem();
+        UpdateTicketController updateTicketController = loader.getController();
+        updateTicketController.setSelectedTicket(ticketToUpdate);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Update Ticket Page");
+        stage.show();
     }
 }
