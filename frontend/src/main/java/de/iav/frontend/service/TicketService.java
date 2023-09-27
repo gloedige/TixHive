@@ -59,7 +59,7 @@ public class TicketService {
                 .join();
     }
 
-    public Ticket updateTicketById(String id, TicketToBeUpdated ticketToBeUpdated) {
+    public void updateTicketById(String id, TicketToBeUpdated ticketToBeUpdated) {
         try {
             String requestBody = objectMapper.writeValueAsString(ticketToBeUpdated);
             HttpRequest request = HttpRequest.newBuilder()
@@ -67,7 +67,7 @@ public class TicketService {
                     .header("Content-Type", HEADER_VAR)
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
-            return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(HttpResponse::body)
                     .thenApply(this::mapToTicket)
                     .join();
