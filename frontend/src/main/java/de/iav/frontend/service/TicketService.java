@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.iav.frontend.exception.CustomJsonProcessingException;
 import de.iav.frontend.model.Ticket;
+import de.iav.frontend.model.TicketToBeUpdated;
 import de.iav.frontend.model.TicketWithoutId;
 
 import java.net.URI;
@@ -56,6 +57,23 @@ public class TicketService {
                 .thenApply(HttpResponse::body)
                 .thenApply(this::mapToTicketList)
                 .join();
+    }
+
+    public void updateTicketById(String id, TicketToBeUpdated ticketToBeUpdated) {
+        try {
+            String requestBody = objectMapper.writeValueAsString(ticketToBeUpdated);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(TICKET_BASE_URL + "/tickets/" + id))
+                    .header("Content-Type", HEADER_VAR)
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(HttpResponse::body)
+                    .thenApply(this::mapToTicket)
+                    .join();
+        } catch (JsonProcessingException e) {
+            throw new CustomJsonProcessingException("Ticket does not exist!", e);
+        }
     }
     private Ticket mapToTicket(String json){
         try{

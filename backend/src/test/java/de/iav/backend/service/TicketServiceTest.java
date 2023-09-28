@@ -9,8 +9,11 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class TicketServiceTest {
@@ -83,5 +86,53 @@ class TicketServiceTest {
         //THEN
         verify(ticketRepository).findAll();
         assertEquals(expectedTicketList, addedTicketList);
+    }
+
+    @Test
+    void updateTicket_whenTicketWithIdExist_thenReturnUpdatedTicket() {
+        //GIVEN
+        TicketRequestDTO ticketWithChangesDTO = new TicketRequestDTO(
+                "subject1",
+                TicketPriority.MEDIUM,
+                TicketStatus.OPEN,
+                "text1",
+                "creatorId1"
+        );
+        Ticket updatedTicket = new Ticket(
+                "SampleId1",
+                "subject1",
+                TicketPriority.MEDIUM,
+                TicketStatus.OPEN,
+                "text1",
+                "creatorId1",
+                LocalDateTime.of(2023, 9, 14, 16, 11, 11)
+        );
+        //WHEN
+        when(ticketRepository.findById("SampleId1")).thenReturn(java.util.Optional.of(updatedTicket));
+        when(ticketRepository.save(updatedTicket)).thenReturn(updatedTicket);
+        var newTicket = ticketService.updateTicketById("SampleId1", ticketWithChangesDTO);
+
+        //THEN
+        verify(ticketRepository).findById("SampleId1");
+        assertEquals(updatedTicket, newTicket);
+    }
+
+    @Test
+    void updateTicket_whenTicketWithIdNotExist_thenThrowNoSuchElementException() {
+        //GIVEN
+        TicketRequestDTO ticketWithChangesDTO = new TicketRequestDTO(
+                "subject1",
+                TicketPriority.MEDIUM,
+                TicketStatus.OPEN,
+                "text1",
+                "creatorId1"
+        );
+        //WHEN
+        when(ticketRepository.findById("SampleId1")).thenReturn(Optional.empty());
+
+        //THEN
+        assertThrows(NoSuchElementException.class, () -> {
+            ticketService.updateTicketById("SampleId1", ticketWithChangesDTO);
+        });
     }
 }

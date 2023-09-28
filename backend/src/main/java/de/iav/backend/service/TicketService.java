@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -27,6 +29,23 @@ public class TicketService {
 
     public List<Ticket> listAllTicket() {
         return ticketRepository.findAll();
+    }
+
+    public Ticket updateTicketById(String ticketId, TicketRequestDTO ticketToUpdate) {
+        Optional<Ticket> existingTicket = ticketRepository.findById(ticketId);
+        if (existingTicket.isPresent()) {
+            Ticket updatedTicket = new Ticket(
+                    existingTicket.get().id(),
+                    ticketToUpdate.subject(),
+                    ticketToUpdate.priority(),
+                    ticketToUpdate.status(),
+                    ticketToUpdate.text(),
+                    ticketToUpdate.creatorId(),
+                    existingTicket.get().creationDate()
+            );
+            return ticketRepository.save(updatedTicket);
+        }
+        throw new NoSuchElementException("Element with " + ticketId + " not found!");
     }
 
     public Ticket createTicket(TicketRequestDTO ticketRequest) {

@@ -4,9 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.ListTicketController">
@@ -45,5 +43,16 @@
             <TableColumn fx:id="creationDateColumn" prefWidth="90.0" text="Date"/>
         </columns>
     </TableView>
-    <Button onAction="#switchToAddTicketScene" prefHeight="30.0" prefWidth="338.0" text="add"/>
+    <HBox>
+        <children>
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#switchToUpdateTicketScene" prefWidth="100.0"
+                    text="update"/>
+            <Button alignment="TOP_CENTER" contentDisplay="CENTER" onAction="#switchToAddTicketScene" prefHeight="26.0"
+                    prefWidth="100.0" text="add">
+                <HBox.margin>
+                    <Insets left="120.0"/>
+                </HBox.margin>
+            </Button>
+        </children>
+    </HBox>
 </VBox>
