@@ -117,4 +117,29 @@ class TicketControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.creatorId").value("Test CreatorId2"))
                 .andReturn();
     }
+
+    @Test
+    void deleteTicket_whenTicketIdExist_thenStatusOk() throws Exception {
+        TicketRequestDTO ticketRequestDTO = new TicketRequestDTO(
+                "Test Subject",
+                TicketPriority.HIGH,
+                TicketStatus.OPEN,
+                "Test Text",
+                "Test CreatorId");
+
+        String ticketRequestJson = objectMapper.writeValueAsString(ticketRequestDTO);
+
+        MvcResult result = mockMvc.perform(post(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(ticketRequestJson))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+        Ticket ticket = objectMapper.readValue(responseJson, Ticket.class);
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/" + ticket.id()))
+                .andExpect(status().isOk())
+                .andReturn();
+    }
 }
