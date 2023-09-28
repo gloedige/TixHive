@@ -59,4 +59,8 @@ public class TicketService {
                 ticketRequest.creatorId(),
                 creationDate);
     }
+
+    public void deleteTicketById(String ticketId) {
+        ticketRepository.deleteById(ticketId);
+    }
 }
