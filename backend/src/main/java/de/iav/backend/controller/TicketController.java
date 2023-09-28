@@ -27,4 +27,9 @@ public class TicketController {
     public Ticket updateTicketById(@PathVariable String id, @RequestBody TicketRequestDTO ticketToUpdate) {
         return ticketService.updateTicketById(id, ticketToUpdate);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteTicketById(@PathVariable String id) {
+        ticketService.deleteTicketById(id);
+    }
 }
