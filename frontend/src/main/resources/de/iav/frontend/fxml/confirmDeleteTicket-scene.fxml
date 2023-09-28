@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/20.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.DeleteTicketController">
+   <children>
+      <Button layoutX="40.0" layoutY="144.0" mnemonicParsing="false" onAction="#deleteTicketAndSwitchToTicketListScene"
+              prefHeight="26.0" prefWidth="100.0" text="confirm"/>
+      <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="7.0" layoutY="45.0" prefHeight="17.0"
+             prefWidth="300.0" text="Confirm delete of ticket!"/>
+      <Label fx:id="ticketToDeleteId" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="83.0"
+             prefWidth="300.0" text="Label" textAlignment="CENTER"/>
+      <Label fx:id="ticketToDeleteSubject" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="106.0"
+             prefWidth="300.0" text="Label" textAlignment="CENTER"/>
+      <Button layoutX="170.0" layoutY="144.0" mnemonicParsing="false" onAction="#switchToTicketListScene"
+              prefWidth="100.0" text="back"/>
+   </children>
+</AnchorPane>
