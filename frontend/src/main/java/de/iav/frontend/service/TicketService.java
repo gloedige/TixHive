@@ -4,9 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.iav.frontend.exception.CustomJsonProcessingException;
+import de.iav.frontend.exception.CustomStatusCodeException;
 import de.iav.frontend.model.Ticket;
 import de.iav.frontend.model.TicketToBeUpdated;
 import de.iav.frontend.model.TicketWithoutId;
+import javafx.application.Platform;
+import javafx.scene.control.TableView;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -74,6 +77,25 @@ public class TicketService {
         } catch (JsonProcessingException e) {
             throw new CustomJsonProcessingException("Ticket does not exist!", e);
         }
+    }
+
+    public void deleteTicketById(String idToDelete, TableView<Ticket> table) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(TICKET_BASE_URL + "/tickets/" + idToDelete))
+                .DELETE()
+                .build();
+        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(response -> {
+                    if (response.statusCode() == 200) {
+                        Platform.runLater(() -> {
+                            table.getItems().removeIf(ticket -> ticket.id().equals(idToDelete));
+                            table.refresh();
+                        });
+                    } else {
+                        throw new CustomStatusCodeException("Error while deleting food with ID: " + idToDelete);
+                    }
+                })
+                .join();
     }
     private Ticket mapToTicket(String json){
         try{
