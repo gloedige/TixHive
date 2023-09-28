@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -25,6 +26,8 @@ public class ListTicketController {
     private Parent root;
     private Stage stage;
     private Scene scene;
+    @FXML
+    private Button updateButton;
     @FXML
     private TableView<Ticket> table;
     @FXML
@@ -45,6 +48,14 @@ public class ListTicketController {
         creationDateColumn.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().creationDate()));
 
         table.getItems().addAll(allTicket);
+
+        updateButton.setDisable(true);
+
+        table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                updateButton.setDisable(false);
+            }
+        });
     }
     @FXML
     protected void switchToAddTicketScene(ActionEvent event) throws IOException {
