@@ -45,7 +45,8 @@
     </TableView>
     <HBox>
         <children>
-            <Button mnemonicParsing="false" onAction="#switchToUpdateTicketScene" prefWidth="100.0" text="update"/>
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#switchToUpdateTicketScene" prefWidth="100.0"
+                    text="update"/>
             <Button alignment="TOP_CENTER" contentDisplay="CENTER" onAction="#switchToAddTicketScene" prefHeight="26.0"
                     prefWidth="100.0" text="add">
                 <HBox.margin>
