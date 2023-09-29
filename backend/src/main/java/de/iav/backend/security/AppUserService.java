@@ -42,7 +42,8 @@ public class AppUserService implements UserDetailsService {
                 appUserRequest.username(),
                 appUserRequest.email(),
                 passwordEncoder.encode(appUserRequest.password()),// Passwort ist nicht gehasht - appUserRequest.password(),
-                AppUserRole.USER
+                appUserRequest.role(),
+                null
         );
         AppUser savedUser = appUserRepository.save(userToSave);
         return new AppUserResponse(
