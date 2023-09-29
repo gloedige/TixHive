@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "api/auth")
 @RequiredArgsConstructor
-public class AppUserController {
+public class AuthController {
     private final AppUserService appUserService;
 
     @PostMapping("/login")
