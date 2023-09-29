@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.RegisterController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <HBox prefHeight="81.0" prefWidth="320.0">
+        <Button mnemonicParsing="false" onAction="#onClickBackButton" prefHeight="50.0" prefWidth="90.0" text="back">
+            <HBox.margin>
+                <Insets top="10.0"/>
+            </HBox.margin>
+        </Button>
+        <Pane prefHeight="73.0" prefWidth="211.0">
+            <ImageView fitHeight="64.0" fitWidth="192.0" layoutX="14.0" preserveRatio="true" y="5.0">
+                <Image url="@../pictures/Bildschirmfoto2023-08-17um13.16.45.png"/>
+            </ImageView>
+            <HBox.margin>
+                <Insets/>
+            </HBox.margin>
+        </Pane>
+        <Button mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="90.0" text="logout">
+            <HBox.margin>
+                <Insets top="10.0"/>
+            </HBox.margin>
+        </Button>
+    </HBox>
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0" text="register"
+           textAlignment="CENTER" textFill="#224783">
+        <font>
+            <Font name="Apple Symbols" size="45.0"/>
+        </font>
+    </Label>
+    <TextField fx:id="usernameInput" prefWidth="320.0" promptText="username"/>
+    <TextField fx:id="emailInput" layoutX="30.0" layoutY="245.0" prefWidth="320.0" promptText="email"/>
+    <TextField fx:id="passwordInput" layoutX="30.0" layoutY="205.0" prefWidth="320.0" promptText="password"/>
+    <ChoiceBox fx:id="roleChoiceBoxRegister" prefHeight="25.0" prefWidth="320.0"/>
+    <Button onAction="#onRegisterClick" prefHeight="30.0" prefWidth="320.0" text="register"/>
+    <Label fx:id="errorLabel" prefHeight="20.0" prefWidth="300.0" textAlignment="CENTER"/>
+</VBox>
