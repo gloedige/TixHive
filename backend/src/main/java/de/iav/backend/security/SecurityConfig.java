@@ -25,10 +25,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(customizer -> customizer
-                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/auth/register").permitAll()
                                 .requestMatchers("/api/tixhive/**").authenticated()
                                 .anyRequest().authenticated()
-                        //.requestMatchers(HttpMethod.GET, "/api/freshventory").authenticated()
+                        //.requestMatchers(HttpMethod.GET, "/api/tixhive").authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable) //Popup anstatt Browseranfrage
