@@ -15,9 +15,11 @@ public class DeleteTicketController {
     private TableView<Ticket> table;
 
     @FXML
-    private Label ticketToDeleteId;
-    @FXML
     private Label ticketToDeleteSubject;
+    @FXML
+    private Label ticketToDeletePriority;
+    @FXML
+    private Label ticketToDeleteText;
     private final TicketService ticketService = TicketService.getInstance();
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
 
@@ -29,8 +31,9 @@ public class DeleteTicketController {
 
     @FXML
     public void setTicketToDeleteToLabel(Ticket ticketToDeleteToLabel) {
-        ticketToDeleteId.setText("ID: " + ticketToDeleteToLabel.id());
-        ticketToDeleteSubject.setText("Subject: " + ticketToDeleteToLabel.subject());
+        ticketToDeleteSubject.setText(ticketToDeleteToLabel.subject());
+        ticketToDeletePriority.setText(ticketToDeleteToLabel.priority().toString());
+        ticketToDeleteText.setText(ticketToDeleteToLabel.text());
     }
 
     public void initData(String idToDelete, TableView<Ticket> table) {
