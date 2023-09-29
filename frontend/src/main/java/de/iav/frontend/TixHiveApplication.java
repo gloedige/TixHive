@@ -12,7 +12,7 @@ public class TixHiveApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TixHiveApplication.class.getResource("/de/iav/frontend/fxml/listAllTickets-scene.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Ticket list");
+        stage.setTitle("Ticket List");
         stage.setScene(scene);
         stage.show();
     }
