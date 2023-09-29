@@ -135,4 +135,24 @@ class TicketServiceTest {
             ticketService.updateTicketById("SampleId1", ticketWithChangesDTO);
         });
     }
+
+    @Test
+    void deleteTicket_whenTicketWithIdExist_thenDeleteTicket() {
+        //GIVEN
+        Ticket ticket1 = new Ticket(
+                "SampleId1",
+                "subject1",
+                TicketPriority.MEDIUM,
+                TicketStatus.OPEN,
+                "text1",
+                "creatorId1",
+                LocalDateTime.of(2023, 9, 14, 16, 11, 11)
+        );
+        //WHEN
+        when(ticketRepository.findById("SampleId1")).thenReturn(Optional.of(ticket1));
+        ticketService.deleteTicketById("SampleId1");
+
+        //THEN
+        verify(ticketRepository).deleteById("SampleId1");
+    }
 }

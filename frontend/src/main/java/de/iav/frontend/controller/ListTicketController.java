@@ -29,6 +29,8 @@ public class ListTicketController {
     @FXML
     private Button updateButton;
     @FXML
+    private Button deleteButton;
+    @FXML
     private TableView<Ticket> table;
     @FXML
     private TableColumn<Ticket, String> subjectColumn = new TableColumn<>("Subject");
@@ -50,10 +52,12 @@ public class ListTicketController {
         table.getItems().addAll(allTicket);
 
         updateButton.setDisable(true);
+        deleteButton.setDisable(true);
 
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 updateButton.setDisable(false);
+                deleteButton.setDisable(false);
             }
         });
     }
@@ -80,5 +84,22 @@ public class ListTicketController {
         stage.setScene(scene);
         stage.setTitle("Update Ticket Page");
         stage.show();
+    }
+
+    @FXML
+    protected void buttonToSwitchToConfirmDeleteTicketScene(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/confirmDeleteTicket-scene.fxml"));
+        root = loader.load();
+
+        String ticketToDeleteId = table.getSelectionModel().getSelectedItem().id();
+        TableView<Ticket> tableToChange = table;
+        DeleteTicketController deleteTicketController = loader.getController();
+        deleteTicketController.initData(ticketToDeleteId, tableToChange);
+        deleteTicketController.setTicketToDeleteToLabel(table.getSelectionModel().getSelectedItem());
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Delete Ticket");
     }
 }
