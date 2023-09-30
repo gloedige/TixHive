@@ -66,12 +66,19 @@ public class RegisterController implements Initializable {
     }
 
     public void register() {
+        String selectedValue = roleChoiceBoxRegister.getValue();
+        AppUserRole selectedRole;
+        if (selectedValue.equals(AppUserRole.USER.toString())) {
+            selectedRole = AppUserRole.USER;
+        } else if (selectedValue.equals(AppUserRole.ADMIN.toString())) {
+            selectedRole = AppUserRole.ADMIN;
+        } else selectedRole = AppUserRole.DEVELOPER;
 
         AppUserRequest appUserRequest = new AppUserRequest(
                 usernameInput.getText(),
                 emailInput.getText(),
                 passwordInput.getText(),
-                roleChoiceBoxRegister.getValue()
+                selectedRole
         );
 
         if (authService.registerAppUser(appUserRequest)) {
