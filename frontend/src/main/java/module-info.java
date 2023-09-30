@@ -11,6 +11,8 @@ module de.iav.frontend {
     exports de.iav.frontend.controller;
     opens de.iav.frontend.service to javafx.fxml;
     exports de.iav.frontend.service;
+    opens de.iav.frontend.security to javafx.fxml;
+    exports de.iav.frontend.security;
     opens de.iav.frontend to javafx.fxml;
     exports de.iav.frontend;
     exports de.iav.frontend.exception;
