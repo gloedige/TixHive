@@ -4,6 +4,6 @@ public record AppUserRequest(
         String username,
         String email,
         String password,
-        String role
+        AppUserRole role
 ) {
 }
