@@ -44,7 +44,15 @@ public class LoginController implements Initializable {
 
     @FXML
     private void login() {
-        if (authService.login(usernameInput.getText(), passwordInput.getText())) {
+        String selectedValue = roleChoiceBox.getValue();
+        AppUserRole selectedRole;
+        if (selectedValue.equals(AppUserRole.USER.toString())) {
+            selectedRole = AppUserRole.USER;
+        } else if (selectedValue.equals(AppUserRole.ADMIN.toString())) {
+            selectedRole = AppUserRole.ADMIN;
+        } else selectedRole = AppUserRole.DEVELOPER;
+
+        if (authService.login(usernameInput.getText(), passwordInput.getText(), selectedRole)) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/listAllTickets-scene.fxml"));
 
             try {
