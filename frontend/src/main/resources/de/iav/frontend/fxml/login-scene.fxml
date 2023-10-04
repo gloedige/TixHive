@@ -37,7 +37,7 @@
             <Font name="Apple Symbols" size="45.0"/>
         </font>
     </Label>
-    <TextField fx:id="usernameInput" promptText="username"/>
+    <TextField fx:id="usernameInput" promptText="email"/>
     <PasswordField fx:id="passwordInput" promptText="password"/>
     <ChoiceBox fx:id="roleChoiceBox" prefHeight="25.0" prefWidth="344.0"/>
     <Button onAction="#onLoginClick" prefHeight="30.0" prefWidth="338.0" text="login"/>
