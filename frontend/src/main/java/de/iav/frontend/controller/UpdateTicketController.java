@@ -4,6 +4,7 @@ import de.iav.frontend.model.Ticket;
 import de.iav.frontend.model.TicketPriority;
 import de.iav.frontend.model.TicketStatus;
 import de.iav.frontend.model.TicketToBeUpdated;
+import de.iav.frontend.service.ChoiceBoxService;
 import de.iav.frontend.service.SceneSwitchService;
 import de.iav.frontend.service.TicketService;
 import javafx.event.ActionEvent;
@@ -25,6 +26,7 @@ public class UpdateTicketController implements Initializable {
     @FXML
     private TextField contentOfTicketToBeUpdated;
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
+    private final ChoiceBoxService choiceBoxService = new ChoiceBoxService();
     private String ticketId;
     private TicketStatus status;
 
@@ -55,14 +57,7 @@ public class UpdateTicketController implements Initializable {
 
     @FXML
     public void updateTicketAndSwitchToTicketListScene(ActionEvent event) throws IOException {
-        String selectedPriorityValue = priorityOfTicketToBeUpdated.getValue();
-
-        TicketPriority selectedPriority;
-        if (selectedPriorityValue.equals(TicketPriority.LOW.toString())) {
-            selectedPriority = TicketPriority.LOW;
-        } else if (selectedPriorityValue.equals(TicketPriority.MEDIUM.toString())) {
-            selectedPriority = TicketPriority.MEDIUM;
-        } else selectedPriority = TicketPriority.HIGH;
+        TicketPriority selectedPriority = choiceBoxService.stringToTicketPriority(priorityOfTicketToBeUpdated.getValue());
 
         TicketToBeUpdated ticketToBeUpdated = new TicketToBeUpdated(
                 ticketId,
