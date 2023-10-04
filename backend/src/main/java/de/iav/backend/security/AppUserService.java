@@ -21,9 +21,11 @@ public class AppUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { //nachfolgend ist es immer "username" egal ob username oder email
         AppUser appUser = appUserRepository.findByEmail(username)//.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("user not found!"));
+        System.out.println("loadUserByUsername: " + appUser.username() + " " + appUser.password() + " " + appUser.role().toString());
         return User.builder()
                 .username(appUser.username())
                 .password(appUser.password())
+                .roles(appUser.role().toString())
                 .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + appUser.role().name())))
                 .build();
     }
