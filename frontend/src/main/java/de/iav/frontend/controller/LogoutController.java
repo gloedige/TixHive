@@ -20,9 +20,9 @@ public class LogoutController {
     private void switchToLoginScene(ActionEvent event) throws IOException {
         authService.logout();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/login-scene.fxml"));
-
+        Parent root;
         try {
-            Parent root = fxmlLoader.load();
+            root = fxmlLoader.load();
         } catch (Exception e) {
             throw new CustomIOException(e.toString());
         }
