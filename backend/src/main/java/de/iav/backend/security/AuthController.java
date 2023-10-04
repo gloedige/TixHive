@@ -22,7 +22,6 @@ public class AuthController {
         if (principal != null) {
             return principal.getName();
         }
-        System.out.println("principal: " + principal);
         return "anonymousUser";
     }
 
