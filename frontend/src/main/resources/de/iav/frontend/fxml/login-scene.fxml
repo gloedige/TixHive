@@ -12,30 +12,23 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
     <HBox prefHeight="81.0" prefWidth="320.0">
-        <Button mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="90.0" text="back">
-            <HBox.margin>
-                <Insets top="10.0"/>
-            </HBox.margin>
-        </Button>
-        <Pane prefHeight="73.0" prefWidth="211.0">
-            <ImageView fitHeight="64.0" fitWidth="192.0" layoutX="14.0" preserveRatio="true" y="5.0">
+        <Pane prefHeight="81.0" prefWidth="311.0">
+            <ImageView fitHeight="145.0" fitWidth="360.0" layoutX="-20.0" layoutY="-5.0" preserveRatio="true" y="5.0">
                 <Image url="@../pictures/Bildschirmfoto2023-08-17um13.16.45.png"/>
             </ImageView>
             <HBox.margin>
                 <Insets/>
             </HBox.margin>
         </Pane>
-        <Button mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="90.0" text="logout">
-            <HBox.margin>
-                <Insets top="10.0"/>
-            </HBox.margin>
-        </Button>
     </HBox>
     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0" text="login"
            textAlignment="CENTER" textFill="#224783">
         <font>
             <Font name="Apple Symbols" size="45.0"/>
         </font>
+        <VBox.margin>
+            <Insets top="50.0"/>
+        </VBox.margin>
     </Label>
     <TextField fx:id="usernameInput" promptText="email"/>
     <PasswordField fx:id="passwordInput" promptText="password"/>
