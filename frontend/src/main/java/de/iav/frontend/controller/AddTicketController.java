@@ -3,6 +3,7 @@ package de.iav.frontend.controller;
 import de.iav.frontend.model.TicketPriority;
 import de.iav.frontend.model.TicketStatus;
 import de.iav.frontend.model.TicketWithoutId;
+import de.iav.frontend.service.ChoiceBoxService;
 import de.iav.frontend.service.SceneSwitchService;
 import de.iav.frontend.service.TicketService;
 import javafx.event.ActionEvent;
@@ -27,6 +28,7 @@ public class AddTicketController implements Initializable {
     private TextField contentOfNewTicket;
 
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
+    private final ChoiceBoxService choiceBoxService = new ChoiceBoxService();
 
 
     @Override
@@ -35,13 +37,7 @@ public class AddTicketController implements Initializable {
     }
     @FXML
     public void addTicketButton(ActionEvent event) throws IOException {
-        String selectedValue = priorityOfNewTicket.getValue();
-        TicketPriority selectedPriority;
-        if (selectedValue.equals(TicketPriority.LOW.toString())) {
-            selectedPriority = TicketPriority.LOW;
-        } else if (selectedValue.equals(TicketPriority.MEDIUM.toString())) {
-            selectedPriority = TicketPriority.MEDIUM;
-        } else selectedPriority = TicketPriority.HIGH;
+        TicketPriority selectedPriority = choiceBoxService.stringToTicketPriority(priorityOfNewTicket.getValue());
 
         TicketWithoutId newTicket = new TicketWithoutId(
                     subjectOfNewTicket.getText(),
