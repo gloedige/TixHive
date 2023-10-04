@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(customizer -> customizer
                                 .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/auth/logout").permitAll()
                                 .requestMatchers("/api/auth/register").permitAll()
                                 .requestMatchers("/api/tixhive/**").authenticated()
                                 .anyRequest().authenticated()
