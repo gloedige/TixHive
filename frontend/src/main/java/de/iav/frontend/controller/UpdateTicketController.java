@@ -74,4 +74,9 @@ public class UpdateTicketController implements Initializable {
     public void switchToTicketListScene(ActionEvent event) throws IOException {
         sceneSwitchService.switchToTicketListScene(event);
     }
+
+    @FXML
+    public void switchToLogoutScene(ActionEvent event) throws IOException {
+        sceneSwitchService.switchToLogoutScene(event);
+    }
 }
