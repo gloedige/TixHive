@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "api/auth")
+@RequestMapping(path = "/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final AppUserService appUserService;
@@ -22,6 +22,7 @@ public class AuthController {
         if (principal != null) {
             return principal.getName();
         }
+        System.out.println("principal: " + principal);
         return "anonymousUser";
     }
 
