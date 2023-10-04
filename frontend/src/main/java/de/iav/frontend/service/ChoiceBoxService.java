@@ -1,15 +1,17 @@
 package de.iav.frontend.service;
 
-import de.iav.frontend.security.AppUserRole;
+import de.iav.frontend.model.TicketPriority;
 
 public class ChoiceBoxService {
-    public String OutputFormatter(AppUserRole role) {
-        String output;
-        if (role.equals(AppUserRole.USER)) {
-            output = AppUserRole.USER.toString();
-        } else if (role.equals(AppUserRole.ADMIN)) {
-            output = AppUserRole.ADMIN.toString();
-        } else output = AppUserRole.DEVELOPER.toString();
-        return output;
+
+    public TicketPriority stringToTicketPriority(String priority) {
+        TicketPriority selectedPriority;
+        if (priority.equals(TicketPriority.LOW.toString())) {
+            selectedPriority = TicketPriority.LOW;
+        } else if (priority.equals(TicketPriority.MEDIUM.toString())) {
+            selectedPriority = TicketPriority.MEDIUM;
+        } else selectedPriority = TicketPriority.HIGH;
+        return selectedPriority;
     }
+
 }
