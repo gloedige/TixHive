@@ -8,6 +8,7 @@ import de.iav.frontend.exception.CustomStatusCodeException;
 import de.iav.frontend.model.Ticket;
 import de.iav.frontend.model.TicketToBeUpdated;
 import de.iav.frontend.model.TicketWithoutId;
+import de.iav.frontend.security.AuthService;
 import javafx.application.Platform;
 import javafx.scene.control.TableView;
 
@@ -18,6 +19,8 @@ import java.net.http.HttpResponse;
 import java.util.List;
 
 public class TicketService {
+    public static final String COOKIE = "Cookie";
+    public static final String JSESSIONID = "JSESSIONID=";
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private static final String TICKET_BASE_URL = "http://localhost:8080/api/tixhive";
@@ -37,7 +40,7 @@ public class TicketService {
     public void addTicket(TicketWithoutId newTicket) {
         try{
             String requestBody = objectMapper.writeValueAsString(newTicket);
-            HttpRequest request = HttpRequest.newBuilder()
+            HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
                     .uri(URI.create(TICKET_BASE_URL + "/tickets"))
                     .header("Content-Type", HEADER_VAR)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
@@ -52,7 +55,7 @@ public class TicketService {
     }
 
     public List<Ticket> listAllTickets() {
-        HttpRequest request = HttpRequest.newBuilder()
+        HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
                 .uri(URI.create(TICKET_BASE_URL + "/tickets"))
                 .GET()
                 .build();
@@ -65,7 +68,7 @@ public class TicketService {
     public void updateTicketById(String id, TicketToBeUpdated ticketToBeUpdated) {
         try {
             String requestBody = objectMapper.writeValueAsString(ticketToBeUpdated);
-            HttpRequest request = HttpRequest.newBuilder()
+            HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
                     .uri(URI.create(TICKET_BASE_URL + "/tickets/" + id))
                     .header("Content-Type", HEADER_VAR)
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
@@ -80,7 +83,7 @@ public class TicketService {
     }
 
     public void deleteTicketById(String idToDelete, TableView<Ticket> table) {
-        HttpRequest request = HttpRequest.newBuilder()
+        HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
                 .uri(URI.create(TICKET_BASE_URL + "/tickets/" + idToDelete))
                 .DELETE()
                 .build();
