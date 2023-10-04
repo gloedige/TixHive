@@ -3,30 +3,26 @@ package de.iav.frontend.controller;
 import de.iav.frontend.TixHiveApplication;
 import de.iav.frontend.exception.CustomIOException;
 import de.iav.frontend.security.AppUserRequest;
-import de.iav.frontend.security.AppUserRole;
 import de.iav.frontend.security.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class RegisterController implements Initializable {
+public class RegisterController {
 
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private static final String ROLE = "USER";
     @FXML
     public TextField usernameInput;
     @FXML
@@ -34,18 +30,11 @@ public class RegisterController implements Initializable {
     @FXML
     public PasswordField passwordInput;
     @FXML
-    private ChoiceBox<String> roleChoiceBoxRegister;
-    @FXML
     public Label errorLabel;
 
     @FXML
     protected void onRegisterClick() {
         register();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        roleChoiceBoxRegister.getItems().addAll(AppUserRole.USER.toString(), AppUserRole.ADMIN.toString(), AppUserRole.DEVELOPER.toString());
     }
 
     private final AuthService authService = AuthService.getInstance();
@@ -66,19 +55,11 @@ public class RegisterController implements Initializable {
     }
 
     public void register() {
-        String selectedValue = roleChoiceBoxRegister.getValue();
-        AppUserRole selectedRole;
-        if (selectedValue.equals(AppUserRole.USER.toString())) {
-            selectedRole = AppUserRole.USER;
-        } else if (selectedValue.equals(AppUserRole.ADMIN.toString())) {
-            selectedRole = AppUserRole.ADMIN;
-        } else selectedRole = AppUserRole.DEVELOPER;
-
         AppUserRequest appUserRequest = new AppUserRequest(
                 usernameInput.getText(),
                 emailInput.getText(),
                 passwordInput.getText(),
-                selectedRole
+                ROLE
         );
 
         if (authService.registerAppUser(appUserRequest)) {
