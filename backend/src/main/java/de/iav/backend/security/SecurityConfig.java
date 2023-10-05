@@ -2,6 +2,7 @@ package de.iav.backend.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,8 +29,12 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/login").permitAll()
                                 .requestMatchers("/api/auth/logout").permitAll()
                                 .requestMatchers("/api/auth/register").permitAll()
-                                .requestMatchers("/api/tixhive/**").authenticated()
-                                .anyRequest().authenticated()
+                                //.requestMatchers("/api/tixhive/**").authenticated()
+                                .requestMatchers(HttpMethod.DELETE, "/api/tixhive/tickets/{id}").hasRole(AppUserRole.ADMIN.name())
+                                .requestMatchers(HttpMethod.DELETE, "/api/tixhive/tickets/{id}").hasRole(AppUserRole.USER.name())
+                                .requestMatchers(HttpMethod.PUT, "/api/tixhive/tickets/status/{id}").hasRole(AppUserRole.DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/api/tixhive/tickets/users/**").hasRole(AppUserRole.DEVELOPER.name())
+                        //.anyRequest().authenticated()
                         //.requestMatchers(HttpMethod.GET, "/api/tixhive").authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
