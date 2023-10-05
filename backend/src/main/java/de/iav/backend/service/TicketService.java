@@ -48,6 +48,23 @@ public class TicketService {
         throw new NoSuchElementException("Element with " + ticketId + " not found!");
     }
 
+    public Ticket updateTicketStatusById(String ticketId, TicketRequestDTO ticketToUpdate) {
+        Optional<Ticket> existingTicket = ticketRepository.findById(ticketId);
+        if (existingTicket.isPresent()) {
+            Ticket updatedTicket = new Ticket(
+                    existingTicket.get().id(),
+                    existingTicket.get().subject(),
+                    existingTicket.get().priority(),
+                    ticketToUpdate.status(),
+                    existingTicket.get().text(),
+                    existingTicket.get().creatorId(),
+                    existingTicket.get().creationDate()
+            );
+            return ticketRepository.save(updatedTicket);
+        }
+        throw new NoSuchElementException("Element with " + ticketId + " not found!");
+    }
+
     public Ticket createTicket(TicketRequestDTO ticketRequest) {
         LocalDateTime creationDate = dateTimeService.getCurrentDateTime();
         return new Ticket(

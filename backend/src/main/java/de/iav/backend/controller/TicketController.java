@@ -28,6 +28,11 @@ public class TicketController {
         return ticketService.updateTicketById(id, ticketToUpdate);
     }
 
+    @PutMapping("/status/{id}")
+    public Ticket updateTicketStatusById(@PathVariable String id, @RequestBody TicketRequestDTO ticketToUpdate) {
+        return ticketService.updateTicketStatusById(id, ticketToUpdate);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteTicketById(@PathVariable String id) {
         ticketService.deleteTicketById(id);
