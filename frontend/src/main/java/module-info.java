@@ -5,6 +5,7 @@ module de.iav.frontend {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires lombok;
+    requires spring.data.mongodb;
     opens de.iav.frontend.model;
     exports de.iav.frontend.model;
     opens de.iav.frontend.controller to javafx.fxml;
