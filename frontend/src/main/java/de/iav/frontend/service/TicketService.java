@@ -25,6 +25,7 @@ public class TicketService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private static final String TICKET_BASE_URL = "http://localhost:8080/api/tixhive";
     private static final String HEADER_VAR = "application/json";
+    private static final String CONTENT_TYP = "Content-Type";
 
     private static TicketService instance;
     public TicketService(){
@@ -42,7 +43,7 @@ public class TicketService {
             String requestBody = objectMapper.writeValueAsString(newTicket);
             HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
                     .uri(URI.create(TICKET_BASE_URL + "/tickets"))
-                    .header("Content-Type", HEADER_VAR)
+                    .header(CONTENT_TYP, HEADER_VAR)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
             httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
@@ -70,7 +71,24 @@ public class TicketService {
             String requestBody = objectMapper.writeValueAsString(ticketToBeUpdated);
             HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
                     .uri(URI.create(TICKET_BASE_URL + "/tickets/" + id))
-                    .header("Content-Type", HEADER_VAR)
+                    .header(CONTENT_TYP, HEADER_VAR)
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(HttpResponse::body)
+                    .thenApply(this::mapToTicket)
+                    .join();
+        } catch (JsonProcessingException e) {
+            throw new CustomJsonProcessingException("Ticket does not exist!", e);
+        }
+    }
+
+    public void updateTicketStatusById(String id, TicketToBeUpdated ticketToBeUpdated) {
+        try {
+            String requestBody = objectMapper.writeValueAsString(ticketToBeUpdated);
+            HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
+                    .uri(URI.create(TICKET_BASE_URL + "/tickets/status/" + id))
+                    .header(CONTENT_TYP, HEADER_VAR)
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
             httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
