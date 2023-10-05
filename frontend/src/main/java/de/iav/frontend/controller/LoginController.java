@@ -1,6 +1,8 @@
 package de.iav.frontend.controller;
 
 import de.iav.frontend.exception.CustomIOException;
+import de.iav.frontend.security.AppUserRequest;
+import de.iav.frontend.security.AppUserRole;
 import de.iav.frontend.security.AuthService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,8 @@ public class LoginController {
     @FXML
     private Label errorLabel;
 
+    private AppUserRequest appUserRequest;
+
     private final AuthService authService = AuthService.getInstance();
 
     @FXML
@@ -31,23 +35,41 @@ public class LoginController {
 
     @FXML
     private void login() {
-        if (authService.login(usernameInput.getText(), passwordInput.getText())) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/listAllTickets-scene.fxml"));
+        String username = usernameInput.getText();
+        String password = passwordInput.getText();
+        String role = appUserRequest.role();
 
-            try {
-                root = fxmlLoader.load();
-            } catch (Exception e) {
-                throw new CustomIOException(e.toString());
+        if (authService.login(username, password, role)) {
+            String fxmlResource;
+            String sceneTitle;
 
+            if (AppUserRole.ADMIN.equals(role) || AppUserRole.USER.equals(role)) {
+                fxmlResource = "/de/iav/frontend/fxml/listAllTickets-scene.fxml";
+                sceneTitle = "Ticket List";
+            } else {
+                fxmlResource = "/de/iav/frontend/fxml/listAllTicketDev-scene.fxml";
+                sceneTitle = "Ticket List - Developer";
             }
 
-            scene = new Scene(root);
-            stage = (Stage) usernameInput.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Ticket List");
+            navigateToScene(fxmlResource, sceneTitle);
         } else {
             errorLabel.setText(authService.errorMessage());
         }
+    }
+
+    private void navigateToScene(String fxmlResource, String sceneTitle) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlResource));
+
+        try {
+            root = fxmlLoader.load();
+        } catch (Exception e) {
+            throw new CustomIOException(e.toString());
+        }
+
+        scene = new Scene(root);
+        stage = (Stage) usernameInput.getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle(sceneTitle);
     }
 
     @FXML
