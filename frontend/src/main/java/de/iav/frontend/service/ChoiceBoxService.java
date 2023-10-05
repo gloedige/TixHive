@@ -1,6 +1,7 @@
 package de.iav.frontend.service;
 
 import de.iav.frontend.model.TicketPriority;
+import de.iav.frontend.model.TicketStatus;
 
 public class ChoiceBoxService {
 
@@ -14,4 +15,13 @@ public class ChoiceBoxService {
         return selectedPriority;
     }
 
+    public TicketStatus stringToTicketStatus(String status) {
+        TicketStatus selectedStatus;
+        if (status.equals(TicketStatus.OPEN.toString())) {
+            selectedStatus = TicketStatus.OPEN;
+        } else if (status.equals(TicketStatus.IN_PROGRESS.toString())) {
+            selectedStatus = TicketStatus.IN_PROGRESS;
+        } else selectedStatus = TicketStatus.DONE;
+        return selectedStatus;
+    }
 }
