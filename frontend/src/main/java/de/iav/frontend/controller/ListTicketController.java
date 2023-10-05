@@ -87,6 +87,22 @@ public class ListTicketController {
     }
 
     @FXML
+    public void switchToHandleTicketScene(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/handleTicket-scene.fxml"));
+        root = loader.load();
+
+        Ticket ticketToHandle = table.getSelectionModel().getSelectedItem();
+        HandleTicketController handleTicketController = loader.getController();
+        handleTicketController.setSelectedTicket(ticketToHandle);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Update Ticket Page");
+        stage.show();
+    }
+
+    @FXML
     protected void buttonToSwitchToConfirmDeleteTicketScene(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/confirmDeleteTicket-scene.fxml"));
         root = loader.load();

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.ListTicketController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <HBox prefHeight="195.0" prefWidth="320.0">
+        <children>
+            <Pane prefHeight="73.0" prefWidth="211.0">
+                <children>
+                    <ImageView fitHeight="64.0" fitWidth="192.0" layoutX="14.0" preserveRatio="true" x="65.0" y="5.0">
+                        <image>
+                            <Image url="@../pictures/Bildschirmfoto2023-08-17um13.16.45.png"/>
+                        </image>
+                    </ImageView>
+                </children>
+            </Pane>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToLogoutScene" prefHeight="50.0"
+                    prefWidth="66.0" text="logout">
+                <HBox.margin>
+                    <Insets left="44.0" top="10.0"/>
+                </HBox.margin>
+            </Button>
+        </children>
+    </HBox>
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0" text="ticket list"
+           textAlignment="CENTER" textFill="#224783">
+        <font>
+            <Font name="Apple Symbols" size="45.0"/>
+        </font>
+    </Label>
+    <TableView fx:id="table" prefHeight="539.0" prefWidth="320.0">
+        <columns>
+            <TableColumn fx:id="subjectColumn" prefWidth="75.0" text="Subject"/>
+            <TableColumn fx:id="priorityColumn" prefWidth="75.0" text="Priority"/>
+            <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status"/>
+            <TableColumn fx:id="creationDateColumn" prefWidth="90.0" text="Date"/>
+        </columns>
+    </TableView>
+    <HBox>
+        <children>
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#switchToHandleTicketScene" prefWidth="320.0"
+                    text="handle ticket"/>
+        </children>
+    </HBox>
+</VBox>
