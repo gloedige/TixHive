@@ -67,11 +67,11 @@ public class AuthService {
         }
     }
 
-    public boolean login(String username, String password, String role) {
+    public boolean login(String username, String password) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BACKEND_AUTH_URL + "/login"))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
-                .header("Authorization", "Basic " + Base64.getEncoder().encodeToString((username + ":" + password + ":" + role).getBytes()))
+                .header("Authorization", "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes()))
                 .build();
 
         var response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
