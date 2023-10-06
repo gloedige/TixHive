@@ -1,6 +1,7 @@
 package de.iav.frontend.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.iav.frontend.exception.CustomJsonProcessingException;
@@ -32,10 +33,10 @@ public class UserService {
         return instance;
     }
 
-    public AppUser findUserById(String id) {
+    public AppUser findUserByEmail(String email) {
 
         HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
-                .uri(URI.create(TICKET_BASE_URL + "/tickets/" + id))
+                .uri(URI.create(TICKET_BASE_URL + "/users/" + email))
                 .GET()
                 .build();
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
@@ -46,7 +47,8 @@ public class UserService {
 
     private AppUser mapToUser(String json) {
         try {
-            return objectMapper.readValue(json, AppUser.class);
+            return objectMapper.readValue(json, new TypeReference<>() {
+            });
         } catch (JsonProcessingException e) {
             throw new CustomJsonProcessingException("Failed to find user!", e);
         }
