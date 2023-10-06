@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ListTicketController {
-    private final TicketService ticketService = TicketService.getInstance();
     private Parent root;
     private Stage stage;
     private Scene scene;
@@ -41,6 +40,7 @@ public class ListTicketController {
     @FXML
     private TableColumn<Ticket, LocalDateTime> creationDateColumn = new TableColumn<>("Creation date");
 
+    private final TicketService ticketService = TicketService.getInstance();
     public void initialize() {
         List<Ticket> allTicket = ticketService.listAllTickets();
         table.getItems().clear();
@@ -98,7 +98,7 @@ public class ListTicketController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Update Ticket Page");
+        stage.setTitle("Handle Ticket Page");
         stage.show();
     }
 
