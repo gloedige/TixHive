@@ -22,11 +22,11 @@ public class HandleTicketController implements Initializable {
     @FXML
     private Label subjectOfTicketToBeHandled;
     @FXML
+    private Label priorityOfTicketToBeHandled;
+    @FXML
     private ChoiceBox<String> statusOfTicketToBeHandled = new ChoiceBox<>();
     @FXML
     private Label contentOfTicketToBeHandled;
-    @FXML
-    private Label priorityOfTicketToBeHandled;
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     private final ChoiceBoxService choiceBoxService = new ChoiceBoxService();
     private String ticketId;
@@ -74,8 +74,8 @@ public class HandleTicketController implements Initializable {
     }
 
     @FXML
-    public void switchToTicketListScene(ActionEvent event) throws IOException {
-        sceneSwitchService.switchToTicketListScene(event);
+    public void switchToTicketListDeveloperScene(ActionEvent event) throws IOException {
+        sceneSwitchService.switchToTicketListDeveloperScene(event);
     }
 
     @FXML
