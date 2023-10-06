@@ -12,7 +12,7 @@ public class UserService {
         this.appUserRepository = appUserRepository;
     }
 
-    public AppUser findUserById(String id) {
-        return appUserRepository.findById(id).orElseThrow();
+    public AppUser findUserByEmail(String email) {
+        return appUserRepository.findByEmail(email).orElseThrow();
     }
 }
