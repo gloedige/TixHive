@@ -12,7 +12,7 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
     <HBox prefHeight="195.0" prefWidth="320.0">
-        <Button mnemonicParsing="false" onAction="#switchToTicketListScene" prefHeight="50.0" prefWidth="90.0"
+        <Button mnemonicParsing="false" onAction="#switchToTicketListDeveloperScene" prefHeight="50.0" prefWidth="90.0"
                 text="back">
             <HBox.margin>
                 <Insets top="10.0"/>
