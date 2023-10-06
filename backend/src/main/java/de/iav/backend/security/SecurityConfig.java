@@ -33,7 +33,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.DELETE, "/api/tixhive/tickets/{id}").hasRole(AppUserRole.ADMIN.name())
                                 .requestMatchers(HttpMethod.DELETE, "/api/tixhive/tickets/{id}").hasRole(AppUserRole.USER.name())
                                 .requestMatchers(HttpMethod.PUT, "/api/tixhive/tickets/status/{id}").hasRole(AppUserRole.DEVELOPER.name())
-                                .requestMatchers(HttpMethod.GET, "/api/tixhive/tickets/users/**").hasRole(AppUserRole.DEVELOPER.name())
+                                .requestMatchers(HttpMethod.GET, "/api/tixhive/users/**").hasRole(AppUserRole.DEVELOPER.name())
                         //.anyRequest().authenticated()
                         //.requestMatchers(HttpMethod.GET, "/api/tixhive").authenticated()
                 )
