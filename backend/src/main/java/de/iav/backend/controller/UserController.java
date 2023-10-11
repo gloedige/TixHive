@@ -29,7 +29,7 @@ public class UserController {
         return userService.findUserByEmail(email);
     }
 
-    @PutMapping("/{email}/tickets/{ticketId}")
+    @PutMapping("/{email}/{ticketId}")
     public AppUser addTicketToAppUser(@PathVariable String email, @PathVariable String ticketId) {
         AppUser appUser = findUserById(email);
         Ticket ticket = ticketRepository.findById(ticketId).orElseThrow();
