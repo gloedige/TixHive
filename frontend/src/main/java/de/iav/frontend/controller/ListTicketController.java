@@ -62,7 +62,7 @@ public class ListTicketController {
                     deleteButton.setDisable(false);
                 }
             });
-            List<Ticket> allUserTickets = userService.addTicketToAppUser(appUser.email(), appUser.tickets().get(0).id()).tickets();
+            List<Ticket> allUserTickets = userService.listAllTicketsByUser(appUser.email()); //.addTicketToAppUser(appUser.email(), appUser.tickets().get(0).id()).tickets();
             table.getItems().addAll(allUserTickets);
         }
         if (AppUserRole.ADMIN.toString().equals(appUser.role().toString())) {
@@ -103,6 +103,8 @@ public class ListTicketController {
     @FXML
     protected void switchToAddTicketScene(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/addTicket-scene.fxml"));
+        AddTicketController addTicketController = loader.getController();
+        addTicketController.customInitialize(appUser);
         root = loader.load();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
