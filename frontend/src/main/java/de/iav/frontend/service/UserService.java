@@ -45,6 +45,17 @@ public class UserService {
                 .join();
     }
 
+    public AppUser addTicketToAppUser(String email, String ticketId) {
+        HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
+                .uri(URI.create(TICKET_BASE_URL + "/users/" + email + "/" + ticketId))
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenApply(this::mapToUser)
+                .join();
+    }
+
     private AppUser mapToUser(String json) {
         try {
             return objectMapper.readValue(json, new TypeReference<>() {
