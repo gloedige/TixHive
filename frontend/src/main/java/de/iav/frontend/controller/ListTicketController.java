@@ -1,10 +1,12 @@
 package de.iav.frontend.controller;
 
+import de.iav.frontend.model.AppUser;
 import de.iav.frontend.model.Ticket;
 import de.iav.frontend.model.TicketPriority;
 import de.iav.frontend.model.TicketStatus;
 import de.iav.frontend.security.AppUserRole;
 import de.iav.frontend.service.TicketService;
+import de.iav.frontend.service.UserService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -44,12 +46,13 @@ public class ListTicketController {
     private TableColumn<Ticket, LocalDateTime> creationDateColumn = new TableColumn<>("Creation date");
 
     private final TicketService ticketService = TicketService.getInstance();
-    public String role;
+    private final UserService userService = UserService.getInstance();
+    private AppUser appUser;
 
-    public void customInitialize(String role) {
-        this.role = role;
+    public void customInitialize(AppUser appUser) {
+        this.appUser = appUser;
 
-        if (AppUserRole.ADMIN.toString().equals(role) || AppUserRole.USER.toString().equals(role)) {
+        if (AppUserRole.USER.toString().equals(appUser.role().toString())) {
             updateButton.setDisable(true);
             deleteButton.setDisable(true);
 
@@ -59,8 +62,23 @@ public class ListTicketController {
                     deleteButton.setDisable(false);
                 }
             });
+            List<Ticket> allUserTickets = userService.addTicketToAppUser(appUser.email(), appUser.tickets().get(0).id()).tickets();
+            table.getItems().addAll(allUserTickets);
         }
-        if (AppUserRole.DEVELOPER.toString().equals(role)) {
+        if (AppUserRole.ADMIN.toString().equals(appUser.role().toString())) {
+            updateButton.setDisable(true);
+            deleteButton.setDisable(true);
+
+            table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    updateButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
+            });
+            List<Ticket> allTicket = ticketService.listAllTickets();
+            table.getItems().addAll(allTicket);
+        }
+        if (AppUserRole.DEVELOPER.toString().equals(appUser.role().toString())) {
             handleTicketButton.setDisable(true);
 
             table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -68,10 +86,11 @@ public class ListTicketController {
                     handleTicketButton.setDisable(false);
                 }
             });
+            List<Ticket> allTicket = ticketService.listAllTickets();
+            table.getItems().addAll(allTicket);
         }
     }
     public void initialize() {
-        List<Ticket> allTicket = ticketService.listAllTickets();
 
         table.getItems().clear();
 
@@ -80,7 +99,6 @@ public class ListTicketController {
         statusColumn.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().status()));
         creationDateColumn.setCellValueFactory(p -> new SimpleObjectProperty<>(p.getValue().creationDate()));
 
-        table.getItems().addAll(allTicket);
     }
     @FXML
     protected void switchToAddTicketScene(ActionEvent event) throws IOException {
