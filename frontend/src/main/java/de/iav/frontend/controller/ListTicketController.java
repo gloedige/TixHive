@@ -47,7 +47,7 @@ public class ListTicketController {
     public String role;
 
     public void customInitialize(String role) {
-        ListTicketController.role = role;
+        this.role = role;
 
         if (AppUserRole.ADMIN.toString().equals(role) || AppUserRole.USER.toString().equals(role)) {
             updateButton.setDisable(true);
