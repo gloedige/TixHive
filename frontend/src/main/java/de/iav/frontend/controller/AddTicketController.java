@@ -1,11 +1,10 @@
 package de.iav.frontend.controller;
 
-import de.iav.frontend.model.TicketPriority;
-import de.iav.frontend.model.TicketStatus;
-import de.iav.frontend.model.TicketWithoutId;
+import de.iav.frontend.model.*;
 import de.iav.frontend.service.ChoiceBoxService;
 import de.iav.frontend.service.SceneSwitchService;
 import de.iav.frontend.service.TicketService;
+import de.iav.frontend.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,9 +27,13 @@ public class AddTicketController implements Initializable {
     private TextField contentOfNewTicket;
 
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
+    private final UserService userService = UserService.getInstance();
     private final ChoiceBoxService choiceBoxService = new ChoiceBoxService();
+    public AppUser appUser;
 
-
+    public void customInitialize(AppUser appUser) {
+        this.appUser = appUser;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         priorityOfNewTicket.getItems().addAll(TicketPriority.LOW.toString(), TicketPriority.MEDIUM.toString(), TicketPriority.HIGH.toString());
@@ -46,8 +49,8 @@ public class AddTicketController implements Initializable {
                     contentOfNewTicket.getText(),
                     "1");
 
-        ticketService.addTicket(newTicket);
-
+        Ticket addedTicket = ticketService.addTicket(newTicket);
+        userService.addTicketToAppUser(appUser.email(), addedTicket.id());
         sceneSwitchService.switchToTicketListScene(event);
     }
 
