@@ -1,6 +1,7 @@
 package de.iav.frontend.controller;
 
 import de.iav.frontend.exception.CustomIOException;
+import de.iav.frontend.model.AppUser;
 import de.iav.frontend.security.AppUserRole;
 import de.iav.frontend.security.AuthService;
 import de.iav.frontend.service.UserService;
@@ -41,15 +42,16 @@ public class LoginController {
             String fxmlResource;
             String sceneTitle;
             String role = userService.findUserByEmail(username).role().toString();
+            AppUser appUser = userService.findUserByEmail(username);
 
             if (AppUserRole.ADMIN.toString().equals(role) || AppUserRole.USER.toString().equals(role)) {
                 fxmlResource = "/de/iav/frontend/fxml/listAllTickets-scene.fxml";
                 sceneTitle = "Ticket List";
-                navigateToScene(fxmlResource, sceneTitle, role);
+                navigateToScene(fxmlResource, sceneTitle, appUser);
             } else {
                 fxmlResource = "/de/iav/frontend/fxml/listAllTicketDev-scene.fxml";
                 sceneTitle = "Ticket List - Developer";
-                navigateToScene(fxmlResource, sceneTitle, role);
+                navigateToScene(fxmlResource, sceneTitle, appUser);
             }
 
         } else {
@@ -58,13 +60,13 @@ public class LoginController {
     }
 
     @FXML
-    private void navigateToScene(String fxmlResource, String sceneTitle, String role) {
+    private void navigateToScene(String fxmlResource, String sceneTitle, AppUser appUser) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlResource));
 
         try {
             root = loader.load();
             ListTicketController listTicketController = loader.getController();
-            listTicketController.customInitialize(role);
+            listTicketController.customInitialize(appUser);
         } catch (Exception e) {
             throw new CustomIOException(e.toString());
         }
