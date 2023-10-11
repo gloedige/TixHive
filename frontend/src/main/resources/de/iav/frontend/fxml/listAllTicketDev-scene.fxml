@@ -46,8 +46,8 @@
     </TableView>
     <HBox>
         <children>
-            <Button mnemonicParsing="false" onAction="#switchToHandleTicketScene" prefWidth="320.0"
-                    text="handle ticket"/>
+            <Button fx:id="handleTicketButton" mnemonicParsing="false" onAction="#switchToHandleTicketScene"
+                    prefWidth="320.0" text="handle ticket"/>
         </children>
     </HBox>
 </VBox>

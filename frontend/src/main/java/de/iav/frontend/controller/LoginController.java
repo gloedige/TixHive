@@ -1,6 +1,7 @@
 package de.iav.frontend.controller;
 
 import de.iav.frontend.exception.CustomIOException;
+import de.iav.frontend.security.AppUserRole;
 import de.iav.frontend.security.AuthService;
 import de.iav.frontend.service.UserService;
 import javafx.fxml.FXML;
@@ -37,41 +38,33 @@ public class LoginController {
         String password = passwordInput.getText();
 
         if (authService.login(username, password)) {
-            //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/listAllTickets-scene.fxml"));
-            //String fxmlResource;
+            String fxmlResource;
             String sceneTitle;
-            //String role = userService.findUserByEmail(username).role().toString();
-            //System.out.println("Role from AppUser: " + role);
+            String role = userService.findUserByEmail(username).role().toString();
 
-            //if (AppUserRole.ADMIN.toString().equals(role) || AppUserRole.USER.toString().equals(role)) {
-            //    fxmlResource = "/de/iav/frontend/fxml/listAllTickets-scene.fxml";
-            //    sceneTitle = "Ticket List";
-            //    navigateToScene(fxmlResource, sceneTitle);
-            //} else {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/listAllTicketDev-scene.fxml"));
+            if (AppUserRole.ADMIN.toString().equals(role) || AppUserRole.USER.toString().equals(role)) {
+                fxmlResource = "/de/iav/frontend/fxml/listAllTickets-scene.fxml";
+                sceneTitle = "Ticket List";
+                navigateToScene(fxmlResource, sceneTitle, role);
+            } else {
+                fxmlResource = "/de/iav/frontend/fxml/listAllTicketDev-scene.fxml";
                 sceneTitle = "Ticket List - Developer";
-            try {
-                root = fxmlLoader.load();
-            } catch (Exception e) {
-                throw new CustomIOException(e.toString());
+                navigateToScene(fxmlResource, sceneTitle, role);
             }
-
-            scene = new Scene(root);
-            stage = (Stage) usernameInput.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle(sceneTitle);
-            //}
 
         } else {
             errorLabel.setText(authService.errorMessage());
         }
     }
-    /*@FXML
-    protected void navigateToScene(String fxmlResource, String sceneTitle) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlResource));
+
+    @FXML
+    private void navigateToScene(String fxmlResource, String sceneTitle, String role) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlResource));
 
         try {
-            root = fxmlLoader.load();
+            root = loader.load();
+            ListTicketController listTicketController = loader.getController();
+            listTicketController.customInitialize(role);
         } catch (Exception e) {
             throw new CustomIOException(e.toString());
         }
@@ -80,7 +73,7 @@ public class LoginController {
         stage = (Stage) usernameInput.getScene().getWindow();
         stage.setScene(scene);
         stage.setTitle(sceneTitle);
-    }*/
+    }
 
     @FXML
     protected void onRegisterClick() {
