@@ -38,7 +38,7 @@ public class TicketService {
         return instance;
     }
 
-    public void addTicket(TicketWithoutId newTicket) {
+    public Ticket addTicket(TicketWithoutId newTicket) {
         try{
             String requestBody = objectMapper.writeValueAsString(newTicket);
             HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
@@ -46,7 +46,7 @@ public class TicketService {
                     .header(CONTENT_TYP, HEADER_VAR)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
-            httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+            return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(HttpResponse::body)
                     .thenApply(this::mapToTicket)
                     .join();
