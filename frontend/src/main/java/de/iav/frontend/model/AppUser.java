@@ -1,6 +1,7 @@
 package de.iav.frontend.model;
 
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public record AppUser(
         String email,
         String password,
         AppUserRole role,
+        @DBRef
         List<Ticket> tickets
 ) {
 }
