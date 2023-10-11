@@ -29,6 +29,16 @@ public class UserController {
         return userService.findUserByEmail(email);
     }
 
+    @GetMapping("/{email}/tickets")
+    public List<Ticket> findTicketsByUser(@PathVariable String email) {
+        AppUser appUser = findUserById(email);
+        if (appUser.tickets() == null) {
+            return new ArrayList<>();
+        } else {
+            return appUser.tickets();
+        }
+    }
+
     @PutMapping("/{email}/{ticketId}")
     public AppUser addTicketToAppUser(@PathVariable String email, @PathVariable String ticketId) {
         AppUser appUser = findUserById(email);
