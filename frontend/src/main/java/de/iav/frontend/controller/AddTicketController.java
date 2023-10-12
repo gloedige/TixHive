@@ -51,12 +51,13 @@ public class AddTicketController implements Initializable {
 
         Ticket addedTicket = ticketService.addTicket(newTicket);
         userService.addTicketToAppUser(appUser.email(), addedTicket.id());
-        sceneSwitchService.switchToTicketListScene(event);
+
+        sceneSwitchService.switchToTicketListScene(event, appUser);
     }
 
     @FXML
     public void switchToTicketListScene(ActionEvent event) throws IOException {
-        sceneSwitchService.switchToTicketListScene(event);
+        sceneSwitchService.switchToTicketListScene(event, appUser);
     }
 
     @FXML

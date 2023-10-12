@@ -2,6 +2,8 @@ package de.iav.frontend.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import de.iav.frontend.controller.ListTicketController;
+import de.iav.frontend.model.AppUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -31,9 +33,11 @@ public class SceneSwitchService {
         return instance;
     }
 
-    public void switchToTicketListScene(ActionEvent event) throws IOException {
+    public void switchToTicketListScene(ActionEvent event, AppUser appUser) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/listAllTickets-scene.fxml"));
         root = loader.load();
+        ListTicketController listTicketController = loader.getController();
+        listTicketController.customInitialize(appUser);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -41,9 +45,11 @@ public class SceneSwitchService {
         stage.show();
     }
 
-    public void switchToTicketListDeveloperScene(ActionEvent event) throws IOException {
+    public void switchToTicketListDeveloperScene(ActionEvent event, AppUser appUser) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/listAllTicketDev-scene.fxml"));
         root = loader.load();
+        ListTicketController listTicketController = loader.getController();
+        listTicketController.customInitialize(appUser);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

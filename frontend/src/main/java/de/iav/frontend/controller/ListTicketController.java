@@ -62,7 +62,7 @@ public class ListTicketController {
                     deleteButton.setDisable(false);
                 }
             });
-            List<Ticket> allUserTickets = userService.listAllTicketsByUser(appUser.email()); //.addTicketToAppUser(appUser.email(), appUser.tickets().get(0).id()).tickets();
+            List<Ticket> allUserTickets = userService.listAllTicketsByUser(appUser.email());
             table.getItems().addAll(allUserTickets);
         }
         if (AppUserRole.ADMIN.toString().equals(appUser.role().toString())) {
@@ -103,9 +103,9 @@ public class ListTicketController {
     @FXML
     protected void switchToAddTicketScene(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/addTicket-scene.fxml"));
+        root = loader.load();
         AddTicketController addTicketController = loader.getController();
         addTicketController.customInitialize(appUser);
-        root = loader.load();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -118,7 +118,7 @@ public class ListTicketController {
 
         Ticket ticketToUpdate = table.getSelectionModel().getSelectedItem();
         UpdateTicketController updateTicketController = loader.getController();
-        updateTicketController.setSelectedTicket(ticketToUpdate);
+        updateTicketController.iniData(ticketToUpdate, appUser);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -151,7 +151,7 @@ public class ListTicketController {
         String ticketToDeleteId = table.getSelectionModel().getSelectedItem().id();
         TableView<Ticket> tableToChange = table;
         DeleteTicketController deleteTicketController = loader.getController();
-        deleteTicketController.initData(ticketToDeleteId, tableToChange);
+        deleteTicketController.initData(ticketToDeleteId, tableToChange, appUser);
         deleteTicketController.setTicketToDeleteToLabel(table.getSelectionModel().getSelectedItem());
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -1,9 +1,6 @@
 package de.iav.frontend.controller;
 
-import de.iav.frontend.model.Ticket;
-import de.iav.frontend.model.TicketPriority;
-import de.iav.frontend.model.TicketStatus;
-import de.iav.frontend.model.TicketToBeUpdated;
+import de.iav.frontend.model.*;
 import de.iav.frontend.service.ChoiceBoxService;
 import de.iav.frontend.service.SceneSwitchService;
 import de.iav.frontend.service.TicketService;
@@ -29,6 +26,7 @@ public class UpdateTicketController implements Initializable {
     private final ChoiceBoxService choiceBoxService = new ChoiceBoxService();
     private String ticketId;
     private TicketStatus status;
+    private AppUser appUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,7 +45,8 @@ public class UpdateTicketController implements Initializable {
         return selectedIndex;
     }
     @FXML
-    public void setSelectedTicket(Ticket selectedTicket) {
+    public void iniData(Ticket selectedTicket, AppUser appUser) {
+        this.appUser = appUser;
         this.ticketId = selectedTicket.id();
         subjectOfTicketToBeUpdated.setText(selectedTicket.subject());
         priorityOfTicketToBeUpdated.getSelectionModel().select(getIndexOfPriorityChoiceBox(priorityOfTicketToBeUpdated, selectedTicket));
@@ -67,12 +66,12 @@ public class UpdateTicketController implements Initializable {
                 contentOfTicketToBeUpdated.getText()
         );
         ticketService.updateTicketById(ticketToBeUpdated.id(), ticketToBeUpdated);
-        sceneSwitchService.switchToTicketListScene(event);
+        sceneSwitchService.switchToTicketListScene(event, appUser);
     }
 
     @FXML
     public void switchToTicketListScene(ActionEvent event) throws IOException {
-        sceneSwitchService.switchToTicketListScene(event);
+        sceneSwitchService.switchToTicketListScene(event, appUser);
     }
 
     @FXML

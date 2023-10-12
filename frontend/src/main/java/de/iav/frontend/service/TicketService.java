@@ -113,7 +113,7 @@ public class TicketService {
                             table.refresh();
                         });
                     } else {
-                        throw new CustomStatusCodeException("Error while deleting food with ID: " + idToDelete);
+                        throw new CustomStatusCodeException("Error while deleting ticket with ID: " + idToDelete);
                     }
                 })
                 .join();
