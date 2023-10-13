@@ -1,5 +1,6 @@
 package de.iav.backend.security;
 
+import de.iav.backend.exceptions.UserAlreadyExistException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
