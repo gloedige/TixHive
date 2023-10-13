@@ -36,7 +36,6 @@ public class UserService {
     }
 
     public AppUser findUserByEmail(String email) {
-
         HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
                 .uri(URI.create(TICKET_BASE_URL + email))
                 .GET()
