@@ -47,7 +47,8 @@ public class HandleTicketController implements Initializable {
     }
 
     @FXML
-    public void setSelectedTicket(Ticket selectedTicket) {
+    public void iniData(Ticket selectedTicket, AppUser appUser) {
+        this.appUser = appUser;
         this.ticketId = selectedTicket.id();
         subjectOfTicketToBeHandled.setText(selectedTicket.subject());
         priorityOfTicketToBeHandled.setText(selectedTicket.priority().toString());

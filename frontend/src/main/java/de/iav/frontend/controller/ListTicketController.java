@@ -134,7 +134,7 @@ public class ListTicketController {
 
         Ticket ticketToHandle = table.getSelectionModel().getSelectedItem();
         HandleTicketController handleTicketController = loader.getController();
-        handleTicketController.setSelectedTicket(ticketToHandle);
+        handleTicketController.iniData(ticketToHandle, appUser);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
