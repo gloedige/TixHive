@@ -29,17 +29,15 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/login").permitAll()
                                 .requestMatchers("/api/auth/logout").permitAll()
                                 .requestMatchers("/api/auth/register").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/api/tixhive/tickets/{id}").hasAnyRole(AppUserRole.USER.name(), AppUserRole.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/tixhive/tickets/{id}").authenticated()
                                 .requestMatchers(HttpMethod.PUT, "/api/tixhive/tickets/status/{id}").hasRole(AppUserRole.DEVELOPER.name())
-                                //.requestMatchers(HttpMethod.DELETE, "/api/tixhive/users/tickets/{id}").hasRole(AppUserRole.USER.name())
                                 .requestMatchers(HttpMethod.GET, "/api/tixhive/users/**").authenticated()
                                 .requestMatchers(HttpMethod.PUT, "/api/tixhive/users/**").authenticated()
                                 .requestMatchers("/api/tixhive/tickets/**").authenticated()
-                        //.anyRequest().authenticated()
-                        //.anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(AbstractHttpConfigurer::disable) //Popup anstatt Browseranfrage
+                .formLogin(AbstractHttpConfigurer::disable)
                 .build();
     }
 }
