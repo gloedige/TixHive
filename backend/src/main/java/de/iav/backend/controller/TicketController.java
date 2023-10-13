@@ -33,8 +33,8 @@ public class TicketController {
         return ticketService.updateTicketStatusById(id, ticketToUpdate);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteTicketById(@PathVariable String id) {
-        ticketService.deleteTicketById(id);
+    @DeleteMapping("/{id}/{email}")
+    public void deleteTicketById(@PathVariable String id, @PathVariable String email) {
+        ticketService.deleteTicketByIdAndEmail(id, email);
     }
 }

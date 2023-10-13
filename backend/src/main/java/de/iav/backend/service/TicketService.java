@@ -81,7 +81,7 @@ public class TicketService {
                 creationDate);
     }
 
-    public void deleteTicketById(String ticketId, String email) {
+    public void deleteTicketByIdAndEmail(String ticketId, String email) {
 
         Optional<AppUser> appUserOptional = appUserRepository.findByEmail(email);
         AppUser appUser;
@@ -92,6 +92,7 @@ public class TicketService {
         }
         Ticket ticketToDeleteFromUser = ticketRepository.findById(ticketId).orElseThrow(() -> new NoSuchElementException("Element with " + ticketId + " not found!"));
         appUser.tickets().remove(ticketToDeleteFromUser);
+        appUserRepository.save(appUser);
         ticketRepository.deleteById(ticketId);
     }
 }
