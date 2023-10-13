@@ -18,6 +18,8 @@ public class TicketService {
     private final AppUserRepository appUserRepository;
     private final IdService idService;
     private final DateTimeService dateTimeService;
+    private static final String EXCEPTION_MESSAGE_PART1 = "Element with ";
+    private static final String EXCEPTION_MESSAGE_PART2 = " not found!";
 
     public TicketService(TicketRepository ticketRepository, AppUserRepository appUserRepository, IdService idService, DateTimeService dateTimeService) {
         this.ticketRepository = ticketRepository;
@@ -49,7 +51,7 @@ public class TicketService {
             );
             return ticketRepository.save(updatedTicket);
         }
-        throw new NoSuchElementException("Element with " + ticketId + " not found!");
+        throw new NoSuchElementException(EXCEPTION_MESSAGE_PART1 + ticketId + EXCEPTION_MESSAGE_PART2);
     }
 
     public Ticket updateTicketStatusById(String ticketId, TicketRequestDTO ticketToUpdate) {
@@ -66,7 +68,7 @@ public class TicketService {
             );
             return ticketRepository.save(updatedTicket);
         }
-        throw new NoSuchElementException("Element with " + ticketId + " not found!");
+        throw new NoSuchElementException(EXCEPTION_MESSAGE_PART1 + ticketId + EXCEPTION_MESSAGE_PART2);
     }
 
     public Ticket createTicket(TicketRequestDTO ticketRequest) {
@@ -88,9 +90,9 @@ public class TicketService {
         if (appUserOptional.isPresent()) {
             appUser = appUserOptional.get();
         } else {
-            throw new NoSuchElementException("Element with " + email + " not found!");
+            throw new NoSuchElementException(EXCEPTION_MESSAGE_PART1 + email + EXCEPTION_MESSAGE_PART2);
         }
-        Ticket ticketToDeleteFromUser = ticketRepository.findById(ticketId).orElseThrow(() -> new NoSuchElementException("Element with " + ticketId + " not found!"));
+        Ticket ticketToDeleteFromUser = ticketRepository.findById(ticketId).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE_PART1 + ticketId + EXCEPTION_MESSAGE_PART2));
         appUser.tickets().remove(ticketToDeleteFromUser);
         appUserRepository.save(appUser);
         ticketRepository.deleteById(ticketId);
