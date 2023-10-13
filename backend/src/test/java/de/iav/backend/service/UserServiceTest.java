@@ -1,5 +1,6 @@
 package de.iav.backend.service;
 
+import de.iav.backend.model.Ticket;
 import de.iav.backend.security.AppUser;
 import de.iav.backend.security.AppUserRepository;
 import de.iav.backend.security.AppUserRole;
@@ -32,8 +33,36 @@ class UserServiceTest {
         AppUser foundUser = userService.findUserByEmail(email);
 
         assertEquals(expectedUser, foundUser);
-
     }
 
+    @Test
+    void findUserByTicketId_whenTicketIdExists_thenReturnUser() {
+        //GIVEN
+        String ticketId = "SampleId";
+        Ticket sampleTicket = new Ticket(
+                ticketId,
+                "SampleSubject",
+                null,
+                null,
+                null,
+                "SampleCreatorId",
+                null);
+        AppUser expectedUser = new AppUser(
+                "SampleId",
+                "SampleName",
+                "SampleEmail",
+                "SamplePassword",
+                AppUserRole.USER,
+                new ArrayList<>());
+        expectedUser.tickets().add(sampleTicket);
+
+        //WHEN
+        when(appUserRepository.findAll()).thenReturn(new ArrayList<>() {{
+            add(expectedUser);
+        }});
+        AppUser foundUser = userService.findUserByTicketId(ticketId);
+
+        assertEquals(expectedUser, foundUser);
+    }
 
 }
