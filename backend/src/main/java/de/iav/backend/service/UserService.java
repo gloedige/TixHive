@@ -1,6 +1,6 @@
 package de.iav.backend.service;
 
-import de.iav.backend.Exceptions.CustomUserNotFoundException;
+import de.iav.backend.exceptions.CustomUserNotFoundException;
 import de.iav.backend.security.AppUser;
 import de.iav.backend.security.AppUserRepository;
 import org.springframework.stereotype.Service;
