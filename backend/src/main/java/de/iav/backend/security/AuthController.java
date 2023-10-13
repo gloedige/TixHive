@@ -1,5 +1,6 @@
 package de.iav.backend.security;
 
+import de.iav.backend.exceptions.UserAlreadyExistException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
