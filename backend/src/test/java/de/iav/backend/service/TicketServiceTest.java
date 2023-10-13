@@ -5,6 +5,9 @@ import de.iav.backend.model.Ticket;
 import de.iav.backend.model.TicketPriority;
 import de.iav.backend.model.TicketStatus;
 import de.iav.backend.repository.TicketRepository;
+import de.iav.backend.security.AppUser;
+import de.iav.backend.security.AppUserRepository;
+import de.iav.backend.security.AppUserRole;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -19,9 +22,11 @@ import static org.mockito.Mockito.*;
 class TicketServiceTest {
 
     private final TicketRepository ticketRepository = mock(TicketRepository.class);
+    private final AppUserRepository appUserRepository = mock(AppUserRepository.class);
     private final IdService idService = mock(IdService.class);
     private final DateTimeService dateTimeService = mock(DateTimeService.class);
-    private final TicketService ticketService = new TicketService(ticketRepository, idService, dateTimeService);
+    private final UserService userservice = mock(UserService.class);
+    private final TicketService ticketService = new TicketService(ticketRepository, appUserRepository, idService, dateTimeService, userservice);
 
     @Test
     void addTicket_whenTicketWasAddedSuccessfully_thenReturnTicket() {
@@ -138,9 +143,12 @@ class TicketServiceTest {
 
     @Test
     void deleteTicket_whenTicketWithIdExist_thenDeleteTicket() {
+        String email = "userEmail";
+        String ticketId = "SampleId1";
         //GIVEN
+
         Ticket ticket1 = new Ticket(
-                "SampleId1",
+                ticketId,
                 "subject1",
                 TicketPriority.MEDIUM,
                 TicketStatus.OPEN,
@@ -148,11 +156,21 @@ class TicketServiceTest {
                 "creatorId1",
                 LocalDateTime.of(2023, 9, 14, 16, 11, 11)
         );
+        AppUser appUser = new AppUser(
+                "userId1",
+                "username1",
+                email,
+                "password1",
+                AppUserRole.USER,
+                List.of(ticket1)
+        );
         //WHEN
-        when(ticketRepository.findById("SampleId1")).thenReturn(Optional.of(ticket1));
-        ticketService.deleteTicketById("SampleId1");
+        when(userservice.findUserByTicketId(ticketId)).thenReturn(appUser);
+        when(ticketRepository.findById(ticketId)).thenReturn(Optional.of(ticket1));
+        when(ticketRepository.save(ticket1)).thenReturn(ticket1);
+        ticketService.deleteTicketById(ticketId);
 
         //THEN
-        verify(ticketRepository).deleteById("SampleId1");
+        verify(ticketRepository).deleteById(ticketId);
     }
 }
