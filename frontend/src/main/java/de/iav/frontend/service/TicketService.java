@@ -100,9 +100,9 @@ public class TicketService {
         }
     }
 
-    public void deleteTicketById(String idToDelete, TableView<Ticket> table) {
+    public void deleteTicketById(String idToDelete, String email, TableView<Ticket> table) {
         HttpRequest request = HttpRequest.newBuilder().header(COOKIE, JSESSIONID + AuthService.getInstance().sessionId())
-                .uri(URI.create(TICKET_BASE_URL + "/tickets/" + idToDelete))
+                .uri(URI.create(TICKET_BASE_URL + "/tickets/" + idToDelete + "/" + email))
                 .DELETE()
                 .build();
         httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
