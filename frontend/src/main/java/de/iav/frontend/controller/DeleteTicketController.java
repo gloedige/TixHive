@@ -27,7 +27,7 @@ public class DeleteTicketController {
 
     @FXML
     public void deleteTicketAndSwitchToTicketListScene(ActionEvent event) throws IOException {
-        ticketService.deleteTicketById(idToDelete, appUser.email(), table);
+        ticketService.deleteTicketById(idToDelete, table);
         sceneSwitchService.switchToTicketListScene(event, appUser);
     }
 
