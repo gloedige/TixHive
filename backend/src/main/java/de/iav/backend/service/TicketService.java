@@ -8,6 +8,7 @@ import de.iav.backend.security.AppUserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -18,10 +19,12 @@ public class TicketService {
     private final AppUserRepository appUserRepository;
     private final IdService idService;
     private final DateTimeService dateTimeService;
+    private final UserService userService;
     private static final String EXCEPTION_MESSAGE_PART1 = "Element with ";
     private static final String EXCEPTION_MESSAGE_PART2 = " not found!";
 
-    public TicketService(TicketRepository ticketRepository, AppUserRepository appUserRepository, IdService idService, DateTimeService dateTimeService) {
+    public TicketService(TicketRepository ticketRepository, AppUserRepository appUserRepository, IdService idService, DateTimeService dateTimeService, UserService userService) {
+        this.userService = userService;
         this.ticketRepository = ticketRepository;
         this.appUserRepository = appUserRepository;
         this.idService = idService;
@@ -83,18 +86,28 @@ public class TicketService {
                 creationDate);
     }
 
-    public void deleteTicketByIdAndEmail(String ticketId, String email) {
+    public void deleteTicketById(String ticketId) {
+        AppUser appUser = userService.findUserByTicketId(ticketId);
 
-        Optional<AppUser> appUserOptional = appUserRepository.findByEmail(email);
-        AppUser appUser;
-        if (appUserOptional.isPresent()) {
-            appUser = appUserOptional.get();
+        Optional<Ticket> ticketOptional = ticketRepository.findById(ticketId);
+        Ticket ticketToDeleteFromUser;
+        if (ticketOptional.isPresent()) {
+            ticketToDeleteFromUser = ticketOptional.get();
         } else {
-            throw new NoSuchElementException(EXCEPTION_MESSAGE_PART1 + email + EXCEPTION_MESSAGE_PART2);
+            throw new NoSuchElementException(EXCEPTION_MESSAGE_PART1 + ticketId + EXCEPTION_MESSAGE_PART2);
         }
-        Ticket ticketToDeleteFromUser = ticketRepository.findById(ticketId).orElseThrow(() -> new NoSuchElementException(EXCEPTION_MESSAGE_PART1 + ticketId + EXCEPTION_MESSAGE_PART2));
-        appUser.tickets().remove(ticketToDeleteFromUser);
-        appUserRepository.save(appUser);
+
+        List<Ticket> mutableTicket = new ArrayList<>(appUser.tickets());
+        mutableTicket.remove(ticketToDeleteFromUser);
+        AppUser appUserTicketDelete = new AppUser(
+                appUser.id(),
+                appUser.username(),
+                appUser.email(),
+                appUser.password(),
+                appUser.role(),
+                mutableTicket
+        );
+        appUserRepository.save(appUserTicketDelete);
         ticketRepository.deleteById(ticketId);
     }
 }
