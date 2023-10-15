@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
 @SpringBootTest
-class TicketControllerIntegrationTest {
+class TicketControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
