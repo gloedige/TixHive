@@ -29,7 +29,7 @@ public class AddTicketController implements Initializable {
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     private final UserService userService = UserService.getInstance();
     private final ChoiceBoxService choiceBoxService = new ChoiceBoxService();
-    public AppUser appUser;
+    private AppUser appUser;
 
     public void customInitialize(AppUser appUser) {
         this.appUser = appUser;
