@@ -6,11 +6,14 @@ import de.iav.backend.dto.TicketRequestDTO;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.model.TicketPriority;
 import de.iav.backend.model.TicketStatus;
+import de.iav.backend.security.AppUserRequest;
+import de.iav.backend.security.AppUserRole;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
@@ -37,6 +40,8 @@ class TicketControllerIntegrationTest {
     private ObjectMapper objectMapper;
 
     private final String BASE_URL = "/api/tixhive/tickets";
+    private final String BASE_AUTH_URL = "/api/auth/register";
+    private final String BASE_USER_URL = "/api/tixhive/users";
 
     public static class TicketControllerJsonParser {
         private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -124,26 +129,57 @@ class TicketControllerIntegrationTest {
 
     @Test
     void deleteTicket_whenTicketIdExist_thenStatusOk() throws Exception {
+        String UserEmail = "UserEmail";
+        AppUserRequest userToFind = new AppUserRequest(
+                "Username",
+                UserEmail,
+                "UserPassword",
+                AppUserRole.USER);
+        String userRequestJson = objectMapper.writeValueAsString(userToFind);
+        mockMvc.perform(post(BASE_AUTH_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userRequestJson))
+                .andExpect(status().is(201))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+
         TicketRequestDTO ticketRequestDTO = new TicketRequestDTO(
                 "Test Subject",
                 TicketPriority.HIGH,
                 TicketStatus.OPEN,
                 "Test Text",
                 "Test CreatorId");
-
         String ticketRequestJson = objectMapper.writeValueAsString(ticketRequestDTO);
-
-        MvcResult result = mockMvc.perform(post(BASE_URL)
+        MvcResult newTicketResult = mockMvc.perform(post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(ticketRequestJson))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
+        String responseJson = newTicketResult.getResponse().getContentAsString();
+        Ticket addedTicket = objectMapper.readValue(responseJson, Ticket.class);
+        String ticketId = addedTicket.id();
+        System.out.println("TicketID: " + ticketId);
 
-        String responseJson = result.getResponse().getContentAsString();
-        Ticket ticket = objectMapper.readValue(responseJson, Ticket.class);
-        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/" + ticket.id()))
+
+        MvcResult userWithTicketResult = mockMvc.perform(MockMvcRequestBuilders.put(BASE_USER_URL + "/" + UserEmail + "/" + ticketId))
                 .andExpect(status().isOk())
                 .andReturn();
+
+
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/" + ticketId))
+                .andExpect(status().is(200))
+                .andReturn();
+        Assertions.assertEquals(HttpStatus.OK.value(), userWithTicketResult.getResponse().getStatus());
+
+
+        MvcResult result = mockMvc.perform(get(BASE_URL))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        String responseJson3 = result.getResponse().getContentAsString();
+        List<Ticket> tickets = TicketControllerJsonParser.parseTicketList(responseJson3);
+        Assertions.assertFalse(tickets.contains(addedTicket));
     }
 }
