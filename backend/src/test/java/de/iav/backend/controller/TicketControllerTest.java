@@ -40,7 +40,7 @@ class TicketControllerTest {
     private ObjectMapper objectMapper;
 
     private final String BASE_URL = "/api/tixhive/tickets";
-    private final String BASE_AUTH_URL = "/api/auth/register";
+    private final String BASE_AUTH_URL = "/api/auth";
     private final String BASE_USER_URL = "/api/tixhive/users";
 
     public static class TicketControllerJsonParser {
@@ -128,6 +128,45 @@ class TicketControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "testUser", roles = "DEVELOPER")
+    void testUpdateTicketStatus_whenTicketIdExist_thenReturnUpdatedTicket() throws Exception {
+        TicketRequestDTO ticketRequestDTO = new TicketRequestDTO(
+                "Test Subject",
+                TicketPriority.HIGH,
+                TicketStatus.OPEN,
+                "Test Text",
+                "Test CreatorId");
+        String ticketRequestJson = objectMapper.writeValueAsString(ticketRequestDTO);
+        MvcResult result = mockMvc.perform(post(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(ticketRequestJson))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        String responseJson = result.getResponse().getContentAsString();
+        Ticket ticket = objectMapper.readValue(responseJson, Ticket.class);
+
+        TicketStatus newStatus = TicketStatus.DONE;
+        TicketRequestDTO ticketToUpdateStatus = new TicketRequestDTO(
+                "Test Subject2",
+                TicketPriority.LOW,
+                newStatus,
+                "Test Text2",
+                "Test CreatorId2");
+        String ticketRequestJson2 = objectMapper.writeValueAsString(ticketToUpdateStatus);
+        MvcResult newTicketResult = mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/status/" + ticket.id())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(ticketRequestJson2))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        String responseJson2 = newTicketResult.getResponse().getContentAsString();
+        Ticket ticketWithUpdatedStatus = objectMapper.readValue(responseJson2, Ticket.class);
+
+        Assertions.assertEquals(ticketToUpdateStatus.status(), ticketWithUpdatedStatus.status());
+    }
+
+    @Test
     void deleteTicket_whenTicketIdExist_thenStatusOk() throws Exception {
         String UserEmail = "UserEmail";
         AppUserRequest userToFind = new AppUserRequest(
@@ -136,7 +175,7 @@ class TicketControllerTest {
                 "UserPassword",
                 AppUserRole.USER);
         String userRequestJson = objectMapper.writeValueAsString(userToFind);
-        mockMvc.perform(post(BASE_AUTH_URL)
+        mockMvc.perform(post(BASE_AUTH_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userRequestJson))
                 .andExpect(status().is(201))
