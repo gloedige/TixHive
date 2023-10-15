@@ -80,7 +80,7 @@ class UserControllerTest {
     }
 
     @Test
-    void testFindTicketsByUser_whenUserExist_listAllUserTickets() throws Exception {
+    void testFindTicketsByUser_whenUserExistAndTicketsNotNull_listAllUserTickets() throws Exception {
         String UserEmail = "UserEmail";
         AppUserRequest userToFind = new AppUserRequest(
                 "Username",
@@ -128,6 +128,33 @@ class UserControllerTest {
         Ticket[] foundTickets = objectMapper.readValue(responseJson2, Ticket[].class);
         Assertions.assertNotNull(foundTickets);
     }
+
+    @Test
+    void testFindTicketsByUser_whenUserExistAndTicketsAreNull_listEmptyArray() throws Exception {
+        String UserEmail = "UserEmail";
+        AppUserRequest userToFind = new AppUserRequest(
+                "Username",
+                UserEmail,
+                "UserPassword",
+                AppUserRole.USER);
+        String userRequestJson = objectMapper.writeValueAsString(userToFind);
+        mockMvc.perform(post(BASE_AUTH_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userRequestJson))
+                .andExpect(status().is(201))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        //write test for case ticket list is null
+
+        MvcResult mvcResult = mockMvc.perform(get(BASE_USER_URL + "/" + UserEmail + "/tickets"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        String responseJson2 = mvcResult.getResponse().getContentAsString();
+        Ticket[] foundTickets = objectMapper.readValue(responseJson2, Ticket[].class);
+        Assertions.assertFalse(foundTickets.length > 0);
+    }
+
 
     @Test
     void testAddTicketToAppUser_whenAppUserAndTicketExist_thenAddTicketToUser() throws Exception {
