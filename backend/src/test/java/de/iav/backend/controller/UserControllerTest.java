@@ -44,12 +44,12 @@ class UserControllerTest {
 
     public static class UserControllerJsonParser {
         private static final ObjectMapper objectMapper = new ObjectMapper();
-
         public static AppUser parseAppUser(String json) throws IOException {
             return objectMapper.readValue(json, new TypeReference<>() {
             });
         }
     }
+
 
     @Test
     void testFindUserByMail_whenMailExist_thenReturnUser() throws Exception {
@@ -130,6 +130,45 @@ class UserControllerTest {
     }
 
     @Test
-    void addTicketToAppUser() {
+    void testAddTicketToAppUser_whenAppUserAndTicketExist_thenAddTicketToUser() throws Exception {
+        String UserEmail = "UserEmail";
+        AppUserRequest userToFind = new AppUserRequest(
+                "Username",
+                UserEmail,
+                "UserPassword",
+                AppUserRole.USER);
+        String userRequestJson = objectMapper.writeValueAsString(userToFind);
+        mockMvc.perform(post(BASE_AUTH_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userRequestJson))
+                .andExpect(status().is(201))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+
+        TicketRequestDTO ticketRequestDTO = new TicketRequestDTO(
+                "Test Subject",
+                TicketPriority.HIGH,
+                TicketStatus.OPEN,
+                "Test Text",
+                "Test CreatorId");
+        String ticketRequestJson = objectMapper.writeValueAsString(ticketRequestDTO);
+        MvcResult newTicketResult = mockMvc.perform(post(BASE_TICKET_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(ticketRequestJson))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        String responseJson = newTicketResult.getResponse().getContentAsString();
+        Ticket addedTicket = objectMapper.readValue(responseJson, Ticket.class);
+        String ticketId = addedTicket.id();
+
+
+        MvcResult updatedUserResult = mockMvc.perform(MockMvcRequestBuilders.put(BASE_USER_URL + "/" + UserEmail + "/" + ticketId))
+                .andExpect(status().isOk())
+                .andReturn();
+        String responseJson2 = updatedUserResult.getResponse().getContentAsString();
+        AppUser updatedUser = objectMapper.readValue(responseJson2, AppUser.class);
+        Assertions.assertNotNull(updatedUser.tickets());
     }
 }
