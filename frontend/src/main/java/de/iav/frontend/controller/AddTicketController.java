@@ -37,7 +37,9 @@ public class AddTicketController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         priorityOfNewTicket.getItems().addAll(TicketPriority.LOW.toString(), TicketPriority.MEDIUM.toString(), TicketPriority.HIGH.toString());
+        priorityOfNewTicket.getSelectionModel().select(0);
     }
+
     @FXML
     public void addTicketButton(ActionEvent event) throws IOException {
         TicketPriority selectedPriority = choiceBoxService.stringToTicketPriority(priorityOfNewTicket.getValue());
