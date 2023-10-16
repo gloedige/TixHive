@@ -142,6 +142,25 @@ class TicketServiceTest {
     }
 
     @Test
+    void updateTicketStatus_whenTicketWithIdNotExist_thenThrowException() {
+        //GIVEN
+        TicketRequestDTO ticketWithChangesDTO = new TicketRequestDTO(
+                "subject1",
+                TicketPriority.MEDIUM,
+                TicketStatus.OPEN,
+                "text1",
+                "creatorId1"
+        );
+        //WHEN
+        when(ticketRepository.findById("SampleId1")).thenReturn(Optional.empty());
+
+        //THEN
+        assertThrows(NoSuchElementException.class, () -> {
+            ticketService.updateTicketStatusById("SampleId1", ticketWithChangesDTO);
+        });
+    }
+
+    @Test
     void deleteTicket_whenTicketWithIdExist_thenDeleteTicket() {
         String email = "userEmail";
         String ticketId = "SampleId1";
@@ -172,5 +191,18 @@ class TicketServiceTest {
 
         //THEN
         verify(ticketRepository).deleteById(ticketId);
+    }
+
+    @Test
+    void deleteTicket_whenTicketWithIdNotExist_thenThrowException() {
+        String ticketId = "SampleId1";
+        //GIVEN
+        //WHEN
+        when(ticketRepository.findById(ticketId)).thenReturn(Optional.empty());
+
+        //THEN
+        assertThrows(NoSuchElementException.class, () -> {
+            ticketService.deleteTicketById(ticketId);
+        });
     }
 }
