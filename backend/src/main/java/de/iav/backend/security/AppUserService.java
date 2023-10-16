@@ -39,7 +39,7 @@ public class AppUserService implements UserDetailsService {
                 null,
                 appUserRequest.username(),
                 appUserRequest.email(),
-                passwordEncoder.encode(appUserRequest.password()),// Passwort ist nicht gehasht - appUserRequest.password(),
+                passwordEncoder.encode(appUserRequest.password()),
                 appUserRequest.role(),
                 null
         );
