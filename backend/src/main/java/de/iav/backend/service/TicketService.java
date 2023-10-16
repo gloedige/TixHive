@@ -5,6 +5,7 @@ import de.iav.backend.model.Ticket;
 import de.iav.backend.repository.TicketRepository;
 import de.iav.backend.security.AppUser;
 import de.iav.backend.security.AppUserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class TicketService {
     private final TicketRepository ticketRepository;
@@ -23,13 +25,6 @@ public class TicketService {
     private static final String EXCEPTION_MESSAGE_PART1 = "Element with ";
     private static final String EXCEPTION_MESSAGE_PART2 = " not found!";
 
-    public TicketService(TicketRepository ticketRepository, AppUserRepository appUserRepository, IdService idService, DateTimeService dateTimeService, UserService userService) {
-        this.userService = userService;
-        this.ticketRepository = ticketRepository;
-        this.appUserRepository = appUserRepository;
-        this.idService = idService;
-        this.dateTimeService = dateTimeService;
-    }
     public Ticket addTicket(TicketRequestDTO ticketRequest)
     {
         Ticket newticket = createTicket(ticketRequest);
