@@ -8,6 +8,7 @@ import de.iav.backend.security.AppUserRole;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,6 +41,8 @@ class UserServiceTest {
     @Test
     void findUserByTicketId_whenTicketIdExists_thenReturnUser() {
         //GIVEN
+        //create a list of users
+        List<AppUser> appUsers = new ArrayList<>();
         String ticketId = "SampleId";
         Ticket sampleTicket = new Ticket(
                 ticketId,
@@ -56,6 +59,7 @@ class UserServiceTest {
                 "SamplePassword",
                 AppUserRole.USER,
                 new ArrayList<>());
+        appUsers.add(expectedUser);
         expectedUser.tickets().add(sampleTicket);
 
         AppUser secondUser = new AppUser(
@@ -65,11 +69,10 @@ class UserServiceTest {
                 "SamplePassword2",
                 AppUserRole.USER,
                 new ArrayList<>());
+        appUsers.add(secondUser);
 
         //WHEN
-        when(appUserRepository.findAll()).thenReturn(new ArrayList<>() {{
-            add(expectedUser);
-        }});
+        when(appUserRepository.findAll()).thenReturn(appUsers);
         AppUser foundUser = userService.findUserByTicketId(ticketId);
 
         assertEquals(expectedUser, foundUser);
