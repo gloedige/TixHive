@@ -68,7 +68,7 @@ class UserServiceTest {
                 "SampleEmail2",
                 "SamplePassword2",
                 AppUserRole.USER,
-                new ArrayList<>());
+                null);
         appUsers.add(secondUser);
 
         //WHEN
