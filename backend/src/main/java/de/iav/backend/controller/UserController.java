@@ -5,24 +5,19 @@ import de.iav.backend.repository.TicketRepository;
 import de.iav.backend.security.AppUser;
 import de.iav.backend.security.AppUserRepository;
 import de.iav.backend.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/tixhive/users")
 public class UserController {
     private final UserService userService;
     private final AppUserRepository appUserRepository;
     private final TicketRepository ticketRepository;
-
-    public UserController(UserService userService, AppUserRepository appUserRepository, TicketRepository ticketRepository) {
-        this.userService = userService;
-        this.appUserRepository = appUserRepository;
-        this.ticketRepository = ticketRepository;
-    }
 
     @GetMapping("/{email}")
     public AppUser findUserById(@PathVariable String email) {
