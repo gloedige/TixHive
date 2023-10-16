@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.6"
+<VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.ListTicketController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
@@ -36,26 +36,30 @@
             <Font name="Apple Symbols" size="45.0"/>
         </font>
     </Label>
-    <TableView fx:id="table" prefHeight="539.0" prefWidth="320.0">
+    <TableView fx:id="table" fixedCellSize="0.0" pickOnBounds="false" prefHeight="539.0" prefWidth="320.0">
         <columns>
-            <TableColumn fx:id="subjectColumn" prefWidth="75.0" text="Subject"/>
-            <TableColumn fx:id="priorityColumn" prefWidth="75.0" text="Priority"/>
-            <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status"/>
-            <TableColumn fx:id="creationDateColumn" prefWidth="90.0" text="Date"/>
+            <TableColumn fx:id="subjectColumn" prefWidth="90.0" resizable="false" text="Subject"/>
+            <TableColumn fx:id="priorityColumn" prefWidth="70.0" resizable="false" text="Priority"/>
+            <TableColumn fx:id="statusColumn" prefWidth="70.0" resizable="false" text="Status"/>
+            <TableColumn fx:id="creationDateColumn" minWidth="2.0" prefWidth="90.0" resizable="false" text="Date"/>
         </columns>
     </TableView>
     <HBox>
         <children>
+            <Button alignment="TOP_CENTER" contentDisplay="CENTER" onAction="#switchToAddTicketScene" prefHeight="26.0"
+                    prefWidth="120.0" text="add">
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
+            </Button>
             <Button fx:id="updateButton" mnemonicParsing="false" onAction="#switchToUpdateTicketScene" prefWidth="120.0"
-                    text="update"/>
-            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#buttonToSwitchToConfirmDeleteTicketScene"
-                    prefWidth="120.0" text="delete">
+                    text="update">
                 <HBox.margin>
                     <Insets left="30.0"/>
                 </HBox.margin>
             </Button>
-            <Button alignment="TOP_CENTER" contentDisplay="CENTER" onAction="#switchToAddTicketScene" prefHeight="26.0"
-                    prefWidth="120.0" text="add">
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#buttonToSwitchToConfirmDeleteTicketScene"
+                    prefWidth="120.0" text="delete">
                 <HBox.margin>
                     <Insets left="30.0"/>
                 </HBox.margin>
