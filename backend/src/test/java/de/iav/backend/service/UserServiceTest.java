@@ -83,9 +83,7 @@ class UserServiceTest {
         when(appUserRepository.findAll()).thenReturn(new ArrayList<>());
 
         //WHEN
-        CustomUserNotFoundException exception = assertThrows(CustomUserNotFoundException.class, () -> {
-            userService.findUserByTicketId(ticketId);
-        });
+        CustomUserNotFoundException exception = assertThrows(CustomUserNotFoundException.class, () -> userService.findUserByTicketId(ticketId));
         assertEquals("No user found with ticketId: " + ticketId, exception.getMessage());
     }
 }
