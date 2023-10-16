@@ -136,9 +136,7 @@ class TicketServiceTest {
         when(ticketRepository.findById("SampleId1")).thenReturn(Optional.empty());
 
         //THEN
-        assertThrows(NoSuchElementException.class, () -> {
-            ticketService.updateTicketById("SampleId1", ticketWithChangesDTO);
-        });
+        assertThrows(NoSuchElementException.class, () -> ticketService.updateTicketById("SampleId1", ticketWithChangesDTO));
     }
 
     @Test
@@ -155,9 +153,7 @@ class TicketServiceTest {
         when(ticketRepository.findById("SampleId1")).thenReturn(Optional.empty());
 
         //THEN
-        assertThrows(NoSuchElementException.class, () -> {
-            ticketService.updateTicketStatusById("SampleId1", ticketWithChangesDTO);
-        });
+        assertThrows(NoSuchElementException.class, () -> ticketService.updateTicketStatusById("SampleId1", ticketWithChangesDTO));
     }
 
     @Test
@@ -201,8 +197,6 @@ class TicketServiceTest {
         when(ticketRepository.findById(ticketId)).thenReturn(Optional.empty());
 
         //THEN
-        assertThrows(NoSuchElementException.class, () -> {
-            ticketService.deleteTicketById(ticketId);
-        });
+        assertThrows(NoSuchElementException.class, () -> ticketService.deleteTicketById(ticketId));
     }
 }

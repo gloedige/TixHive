@@ -19,8 +19,6 @@ import static org.mockito.Mockito.when;
 class AppUserServiceTest {
     private final AppUserRepository appUserRepository = mock(AppUserRepository.class);
     private final PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
-    private final AppUserService AppUserService = new AppUserService(appUserRepository, passwordEncoder);
-    private final UserService userService = new UserService(appUserRepository);
 
     @Test
     void loadUserByUsername_whenUserExist_thenBuildUser() {
@@ -59,8 +57,6 @@ class AppUserServiceTest {
         AppUserService authUserService = new AppUserService(appUserRepository, passwordEncoder);
 
         // Act and Assert
-        assertThrows(UsernameNotFoundException.class, () -> {
-            authUserService.loadUserByUsername(username);
-        });
+        assertThrows(UsernameNotFoundException.class, () -> authUserService.loadUserByUsername(username));
     }
 }
