@@ -32,13 +32,14 @@ public class HandleTicketController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         statusOfTicketToBeHandled.getItems().addAll(TicketStatus.OPEN.toString(), TicketStatus.IN_PROGRESS.toString(), TicketStatus.DONE.toString());
+
     }
 
     public int getIndexOfStatusChoiceBox(ChoiceBox<String> choiceBox, Ticket ticketToHandle) {
         int selectedIndex = -1;
         for (int i = 0; i < choiceBox.getItems().size(); i++) {
             String element = choiceBox.getItems().get(i);
-            if (element.equals(ticketToHandle.priority().toString())) {
+            if (element.equals(ticketToHandle.status().toString())) {
                 selectedIndex = i;
                 break;
             }
