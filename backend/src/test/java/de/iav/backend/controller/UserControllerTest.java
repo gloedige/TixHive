@@ -73,8 +73,8 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String responseJson = mvcResult.getResponse().getContentAsString();
-        AppUser foundUser = UserControllerJsonParser.parseAppUser(responseJson);
+        String createdUserResponseJson = mvcResult.getResponse().getContentAsString();
+        AppUser foundUser = UserControllerJsonParser.parseAppUser(createdUserResponseJson);
 
         Assertions.assertNotNull(foundUser);
     }
@@ -109,8 +109,8 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String responseJson = result.getResponse().getContentAsString();
-        Ticket addedTicket = objectMapper.readValue(responseJson, Ticket.class);
+        String createdTicketResponseJson = result.getResponse().getContentAsString();
+        Ticket addedTicket = objectMapper.readValue(createdTicketResponseJson, Ticket.class);
         String ticketId = addedTicket.id();
 
 
@@ -124,8 +124,8 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String responseJson2 = mvcResult.getResponse().getContentAsString();
-        Ticket[] foundTickets = objectMapper.readValue(responseJson2, Ticket[].class);
+        String userTicketsResponseJson = mvcResult.getResponse().getContentAsString();
+        Ticket[] foundTickets = objectMapper.readValue(userTicketsResponseJson, Ticket[].class);
         Assertions.assertNotNull(foundTickets);
     }
 
@@ -144,14 +144,13 @@ class UserControllerTest {
                 .andExpect(status().is(201))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        //write test for case ticket list is null
 
         MvcResult mvcResult = mockMvc.perform(get(BASE_USER_URL + "/" + UserEmail + "/tickets"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String responseJson2 = mvcResult.getResponse().getContentAsString();
-        Ticket[] foundTickets = objectMapper.readValue(responseJson2, Ticket[].class);
+        String userTicketsResponseJson = mvcResult.getResponse().getContentAsString();
+        Ticket[] foundTickets = objectMapper.readValue(userTicketsResponseJson, Ticket[].class);
         Assertions.assertFalse(foundTickets.length > 0);
     }
 
@@ -186,16 +185,16 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String responseJson = newTicketResult.getResponse().getContentAsString();
-        Ticket addedTicket = objectMapper.readValue(responseJson, Ticket.class);
+        String createdTicketResponseJson = newTicketResult.getResponse().getContentAsString();
+        Ticket addedTicket = objectMapper.readValue(createdTicketResponseJson, Ticket.class);
         String ticketId = addedTicket.id();
 
 
         MvcResult updatedUserResult = mockMvc.perform(MockMvcRequestBuilders.put(BASE_USER_URL + "/" + UserEmail + "/" + ticketId))
                 .andExpect(status().isOk())
                 .andReturn();
-        String responseJson2 = updatedUserResult.getResponse().getContentAsString();
-        AppUser updatedUser = objectMapper.readValue(responseJson2, AppUser.class);
+        String updatedUserResponseJson = updatedUserResult.getResponse().getContentAsString();
+        AppUser updatedUser = objectMapper.readValue(updatedUserResponseJson, AppUser.class);
         Assertions.assertNotNull(updatedUser.tickets());
     }
 }
