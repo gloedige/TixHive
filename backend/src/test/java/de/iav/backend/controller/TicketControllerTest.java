@@ -68,7 +68,7 @@ class TicketControllerTest {
                         .content(ticketRequestJson))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.subject").value("Test Subject")) // Check the response JSON
+                .andExpect(MockMvcResultMatchers.jsonPath("$.subject").value("Test Subject"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.priority").value(TicketPriority.HIGH.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(TicketStatus.OPEN.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("Test Text"))
@@ -82,8 +82,8 @@ class TicketControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String responseJson = result.getResponse().getContentAsString();
-        List<Ticket> tickets = TicketControllerJsonParser.parseTicketList(responseJson);
+        String checkTicketsResponseJson = result.getResponse().getContentAsString();
+        List<Ticket> tickets = TicketControllerJsonParser.parseTicketList(checkTicketsResponseJson);
         Assertions.assertNotNull(tickets);
     }
 
@@ -105,8 +105,8 @@ class TicketControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
-        String responseJson = result.getResponse().getContentAsString();
-        Ticket ticket = objectMapper.readValue(responseJson, Ticket.class);
+        String createdTicketResponseJson = result.getResponse().getContentAsString();
+        Ticket ticket = objectMapper.readValue(createdTicketResponseJson, Ticket.class);
         TicketRequestDTO ticketToUpdate = new TicketRequestDTO(
                 "Test Subject2",
                 TicketPriority.LOW,
@@ -143,8 +143,8 @@ class TicketControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String responseJson = result.getResponse().getContentAsString();
-        Ticket ticket = objectMapper.readValue(responseJson, Ticket.class);
+        String createdTicketResponseJson = result.getResponse().getContentAsString();
+        Ticket ticket = objectMapper.readValue(createdTicketResponseJson, Ticket.class);
 
         TicketStatus newStatus = TicketStatus.DONE;
         TicketRequestDTO ticketToUpdateStatus = new TicketRequestDTO(
@@ -160,8 +160,8 @@ class TicketControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String responseJson2 = newTicketResult.getResponse().getContentAsString();
-        Ticket ticketWithUpdatedStatus = objectMapper.readValue(responseJson2, Ticket.class);
+        String updatedTicketResponseJson = newTicketResult.getResponse().getContentAsString();
+        Ticket ticketWithUpdatedStatus = objectMapper.readValue(updatedTicketResponseJson, Ticket.class);
 
         Assertions.assertEquals(ticketToUpdateStatus.status(), ticketWithUpdatedStatus.status());
     }
@@ -196,8 +196,8 @@ class TicketControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String responseJson = newTicketResult.getResponse().getContentAsString();
-        Ticket addedTicket = objectMapper.readValue(responseJson, Ticket.class);
+        String createdTicketResponseJson = newTicketResult.getResponse().getContentAsString();
+        Ticket addedTicket = objectMapper.readValue(createdTicketResponseJson, Ticket.class);
         String ticketId = addedTicket.id();
         System.out.println("TicketID: " + ticketId);
 
@@ -217,8 +217,8 @@ class TicketControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String responseJson3 = result.getResponse().getContentAsString();
-        List<Ticket> tickets = TicketControllerJsonParser.parseTicketList(responseJson3);
+        String checkTicketsResponseJson = result.getResponse().getContentAsString();
+        List<Ticket> tickets = TicketControllerJsonParser.parseTicketList(checkTicketsResponseJson);
         Assertions.assertFalse(tickets.contains(addedTicket));
     }
 }
