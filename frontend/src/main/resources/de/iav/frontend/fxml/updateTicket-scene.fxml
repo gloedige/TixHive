@@ -38,7 +38,7 @@
     </Label>
     <TextField fx:id="subjectOfTicketToBeUpdated" promptText="subject"/>
     <ChoiceBox fx:id="priorityOfTicketToBeUpdated" prefHeight="25.0" prefWidth="344.0"/>
-    <TextField fx:id="contentOfTicketToBeUpdated" alignment="TOP_LEFT" prefHeight="396.0" prefWidth="320.0"
-               promptText="text"/>
+    <TextArea fx:id="contentOfTicketToBeUpdated" prefHeight="400.0" prefWidth="320.0" promptText="content of ticket"
+              text="content of ticket" wrapText="true"/>
     <Button onAction="#updateTicketAndSwitchToTicketListScene" prefHeight="30.0" prefWidth="338.0" text="update"/>
 </VBox>

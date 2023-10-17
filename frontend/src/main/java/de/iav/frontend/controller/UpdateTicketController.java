@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class UpdateTicketController implements Initializable {
     @FXML
     private ChoiceBox<String> priorityOfTicketToBeUpdated = new ChoiceBox<>();
     @FXML
-    private TextField contentOfTicketToBeUpdated;
+    private TextArea contentOfTicketToBeUpdated;
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     private final ChoiceBoxService choiceBoxService = new ChoiceBoxService();
     private String ticketId;

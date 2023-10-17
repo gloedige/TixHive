@@ -8,7 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,13 +18,13 @@ import java.util.ResourceBundle;
 public class HandleTicketController implements Initializable {
     private final TicketService ticketService = TicketService.getInstance();
     @FXML
-    private Label subjectOfTicketToBeHandled;
+    private TextField subjectOfTicketToBeHandled;
     @FXML
-    private Label priorityOfTicketToBeHandled;
+    private TextField priorityOfTicketToBeHandled;
     @FXML
     private ChoiceBox<String> statusOfTicketToBeHandled = new ChoiceBox<>();
     @FXML
-    private Label contentOfTicketToBeHandled;
+    private TextArea contentOfTicketToBeHandled;
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     private final ChoiceBoxService choiceBoxService = new ChoiceBoxService();
     private String ticketId;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -30,25 +30,19 @@
             </HBox.margin>
         </Button>
     </HBox>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0" text="update Ticket"
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0" text="handle Ticket"
            textAlignment="CENTER" textFill="#224783">
         <font>
             <Font name="Apple Symbols" size="45.0"/>
         </font>
     </Label>
-    <Label fx:id="subjectOfTicketToBeHandled" prefHeight="25.0" prefWidth="320.0" text="subject">
-        <opaqueInsets>
-            <Insets/>
-        </opaqueInsets>
-    </Label>
-    <Label fx:id="priorityOfTicketToBeHandled" layoutX="30.0" layoutY="207.0" prefHeight="25.0" prefWidth="320.0"
-           text="priority">
-        <opaqueInsets>
-            <Insets/>
-        </opaqueInsets>
-    </Label>
+    <TextField fx:id="subjectOfTicketToBeHandled" editable="false" prefHeight="25.0" prefWidth="320.0"
+               promptText="subject" text="subject"/>
+    <TextField fx:id="priorityOfTicketToBeHandled" editable="false" prefHeight="25.0" prefWidth="320.0"
+               promptText="priority" text="priority"/>
     <ChoiceBox fx:id="statusOfTicketToBeHandled" prefHeight="25.0" prefWidth="344.0"/>
-    <Label fx:id="contentOfTicketToBeHandled" alignment="TOP_LEFT" prefHeight="400.0" prefWidth="320.0" text="text"/>
+    <TextArea fx:id="contentOfTicketToBeHandled" editable="false" prefHeight="400.0" prefWidth="320.0"
+              promptText="content of ticket" wrapText="true"/>
     <Button onAction="#handleTicketAndSwitchToTicketListDevScene" prefHeight="30.0" prefWidth="338.0"
             text="close ticket"/>
 </VBox>
