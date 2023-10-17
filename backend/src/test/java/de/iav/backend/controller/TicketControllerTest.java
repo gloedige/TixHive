@@ -168,7 +168,7 @@ class TicketControllerTest {
 
     @Test
     void deleteTicket_whenTicketIdExist_thenStatusOk() throws Exception {
-        String UserEmail = "UserEmail";
+        String UserEmail = "userEmail";
         AppUserRequest userToFind = new AppUserRequest(
                 "Username",
                 UserEmail,
