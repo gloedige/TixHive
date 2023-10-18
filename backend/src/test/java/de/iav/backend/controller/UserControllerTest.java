@@ -53,10 +53,10 @@ class UserControllerTest {
 
     @Test
     void testFindUserByMail_whenMailExist_thenReturnUser() throws Exception {
-        String UserEmail = "UserEmail";
+        String userEmail = "UserEmail";
         AppUserRequest userToFind = new AppUserRequest(
                 "Username",
-                UserEmail,
+                userEmail,
                 "UserPassword",
                 AppUserRole.USER);
 
@@ -69,7 +69,7 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
-        MvcResult mvcResult = mockMvc.perform(get(BASE_USER_URL + "/" + UserEmail))
+        MvcResult mvcResult = mockMvc.perform(get(BASE_USER_URL + "/" + userEmail))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -81,10 +81,10 @@ class UserControllerTest {
 
     @Test
     void testFindTicketsByUser_whenUserExistAndTicketsNotNull_listAllUserTickets() throws Exception {
-        String UserEmail = "UserEmail";
+        String userEmail = "UserEmail";
         AppUserRequest userToFind = new AppUserRequest(
                 "Username",
-                UserEmail,
+                userEmail,
                 "UserPassword",
                 AppUserRole.USER);
         String userRequestJson = objectMapper.writeValueAsString(userToFind);
@@ -114,13 +114,13 @@ class UserControllerTest {
         String ticketId = addedTicket.id();
 
 
-        mockMvc.perform(MockMvcRequestBuilders.put(BASE_USER_URL + "/" + UserEmail + "/" + ticketId))
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_USER_URL + "/" + userEmail + "/" + ticketId))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
 
-        MvcResult mvcResult = mockMvc.perform(get(BASE_USER_URL + "/" + UserEmail + "/tickets"))
+        MvcResult mvcResult = mockMvc.perform(get(BASE_USER_URL + "/" + userEmail + "/tickets"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -131,10 +131,10 @@ class UserControllerTest {
 
     @Test
     void testFindTicketsByUser_whenUserExistAndTicketsAreNull_listEmptyArray() throws Exception {
-        String UserEmail = "UserEmail";
+        String userEmail = "UserEmail";
         AppUserRequest userToFind = new AppUserRequest(
                 "Username",
-                UserEmail,
+                userEmail,
                 "UserPassword",
                 AppUserRole.USER);
         String userRequestJson = objectMapper.writeValueAsString(userToFind);
@@ -145,7 +145,7 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
-        MvcResult mvcResult = mockMvc.perform(get(BASE_USER_URL + "/" + UserEmail + "/tickets"))
+        MvcResult mvcResult = mockMvc.perform(get(BASE_USER_URL + "/" + userEmail + "/tickets"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -157,10 +157,10 @@ class UserControllerTest {
 
     @Test
     void testAddTicketToAppUser_whenAppUserAndTicketExist_thenAddTicketToUser() throws Exception {
-        String UserEmail = "UserEmail";
+        String userEmail = "UserEmail";
         AppUserRequest userToFind = new AppUserRequest(
                 "Username",
-                UserEmail,
+                userEmail,
                 "UserPassword",
                 AppUserRole.USER);
         String userRequestJson = objectMapper.writeValueAsString(userToFind);
@@ -190,7 +190,7 @@ class UserControllerTest {
         String ticketId = addedTicket.id();
 
 
-        MvcResult updatedUserResult = mockMvc.perform(MockMvcRequestBuilders.put(BASE_USER_URL + "/" + UserEmail + "/" + ticketId))
+        MvcResult updatedUserResult = mockMvc.perform(MockMvcRequestBuilders.put(BASE_USER_URL + "/" + userEmail + "/" + ticketId))
                 .andExpect(status().isOk())
                 .andReturn();
         String updatedUserResponseJson = updatedUserResult.getResponse().getContentAsString();
