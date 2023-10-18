@@ -1,6 +1,7 @@
 package de.iav.backend.service;
 
 import de.iav.backend.dto.TicketRequestDTO;
+import de.iav.backend.exceptions.CustomTicketNotFoundException;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.repository.TicketRepository;
 import de.iav.backend.security.AppUser;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -22,8 +22,6 @@ public class TicketService {
     private final IdService idService;
     private final DateTimeService dateTimeService;
     private final UserService userService;
-    private static final String EXCEPTION_MESSAGE_PART1 = "Element with ";
-    private static final String EXCEPTION_MESSAGE_PART2 = " not found!";
 
     public Ticket addTicket(TicketRequestDTO ticketRequest)
     {
@@ -49,7 +47,7 @@ public class TicketService {
             );
             return ticketRepository.save(updatedTicket);
         }
-        throw new NoSuchElementException(EXCEPTION_MESSAGE_PART1 + ticketId + EXCEPTION_MESSAGE_PART2);
+        throw new CustomTicketNotFoundException(ticketId);
     }
 
     public Ticket updateTicketStatusById(String ticketId, TicketRequestDTO ticketToUpdate) {
@@ -66,7 +64,7 @@ public class TicketService {
             );
             return ticketRepository.save(updatedTicket);
         }
-        throw new NoSuchElementException(EXCEPTION_MESSAGE_PART1 + ticketId + EXCEPTION_MESSAGE_PART2);
+        throw new CustomTicketNotFoundException(ticketId);
     }
 
     public Ticket createTicket(TicketRequestDTO ticketRequest) {
@@ -89,7 +87,7 @@ public class TicketService {
         if (ticketOptional.isPresent()) {
             ticketToDeleteFromUser = ticketOptional.get();
         } else {
-            throw new NoSuchElementException(EXCEPTION_MESSAGE_PART1 + ticketId + EXCEPTION_MESSAGE_PART2);
+            throw new CustomTicketNotFoundException(ticketId);
         }
 
         List<Ticket> mutableTicket = new ArrayList<>(appUser.tickets());

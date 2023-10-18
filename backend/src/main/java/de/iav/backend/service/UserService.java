@@ -25,6 +25,6 @@ public class UserService {
                 return user;
             }
         }
-        throw new CustomUserNotFoundException("No user found with ticketId: " + ticketId);
+        throw new CustomUserNotFoundException(ticketId);
     }
 }
