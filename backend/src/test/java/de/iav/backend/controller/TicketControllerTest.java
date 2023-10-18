@@ -168,10 +168,10 @@ class TicketControllerTest {
 
     @Test
     void deleteTicket_whenTicketIdExist_thenStatusOk() throws Exception {
-        String UserEmail = "userEmail";
+        String userEmail = "UserEmail";
         AppUserRequest userToFind = new AppUserRequest(
                 "Username",
-                UserEmail,
+                userEmail,
                 "UserPassword",
                 AppUserRole.USER);
         String userRequestJson = objectMapper.writeValueAsString(userToFind);
@@ -202,7 +202,7 @@ class TicketControllerTest {
         System.out.println("TicketID: " + ticketId);
 
 
-        MvcResult userWithTicketResult = mockMvc.perform(MockMvcRequestBuilders.put(BASE_USER_URL + "/" + UserEmail + "/" + ticketId))
+        MvcResult userWithTicketResult = mockMvc.perform(MockMvcRequestBuilders.put(BASE_USER_URL + "/" + userEmail + "/" + ticketId))
                 .andExpect(status().isOk())
                 .andReturn();
 

@@ -41,7 +41,6 @@ class UserServiceTest {
     @Test
     void findUserByTicketId_whenTicketIdExists_thenReturnUser() {
         //GIVEN
-        //create a list of users
         List<AppUser> appUsers = new ArrayList<>();
         String ticketId = "SampleId";
         Ticket sampleTicket = new Ticket(
