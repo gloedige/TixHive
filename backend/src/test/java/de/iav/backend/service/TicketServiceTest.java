@@ -1,6 +1,7 @@
 package de.iav.backend.service;
 
 import de.iav.backend.dto.TicketRequestDTO;
+import de.iav.backend.exceptions.CustomTicketNotFoundException;
 import de.iav.backend.model.Ticket;
 import de.iav.backend.model.TicketPriority;
 import de.iav.backend.model.TicketStatus;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -136,7 +136,7 @@ class TicketServiceTest {
         when(ticketRepository.findById("SampleId1")).thenReturn(Optional.empty());
 
         //THEN
-        assertThrows(NoSuchElementException.class, () -> ticketService.updateTicketById("SampleId1", ticketWithChangesDTO));
+        assertThrows(CustomTicketNotFoundException.class, () -> ticketService.updateTicketById("SampleId1", ticketWithChangesDTO));
     }
 
     @Test
@@ -153,7 +153,7 @@ class TicketServiceTest {
         when(ticketRepository.findById("SampleId1")).thenReturn(Optional.empty());
 
         //THEN
-        assertThrows(NoSuchElementException.class, () -> ticketService.updateTicketStatusById("SampleId1", ticketWithChangesDTO));
+        assertThrows(CustomTicketNotFoundException.class, () -> ticketService.updateTicketStatusById("SampleId1", ticketWithChangesDTO));
     }
 
     @Test
@@ -197,6 +197,6 @@ class TicketServiceTest {
         when(ticketRepository.findById(ticketId)).thenReturn(Optional.empty());
 
         //THEN
-        assertThrows(NoSuchElementException.class, () -> ticketService.deleteTicketById(ticketId));
+        assertThrows(CustomTicketNotFoundException.class, () -> ticketService.deleteTicketById(ticketId));
     }
 }
