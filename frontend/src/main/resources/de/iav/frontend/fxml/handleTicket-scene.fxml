@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.6"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.UpdateTicketController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.HandleTicketController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
     <HBox prefHeight="195.0" prefWidth="320.0">
-        <Button mnemonicParsing="false" onAction="#switchToTicketListScene" prefHeight="50.0" prefWidth="90.0"
+        <Button mnemonicParsing="false" onAction="#switchToTicketListDeveloperScene" prefHeight="50.0" prefWidth="90.0"
                 text="back">
             <HBox.margin>
                 <Insets top="10.0"/>
@@ -30,15 +30,19 @@
             </HBox.margin>
         </Button>
     </HBox>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0" text="update Ticket"
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0" text="handle Ticket"
            textAlignment="CENTER" textFill="#224783">
         <font>
             <Font name="Apple Symbols" size="45.0"/>
         </font>
     </Label>
-    <TextField fx:id="subjectOfTicketToBeUpdated" promptText="subject"/>
-    <ChoiceBox fx:id="priorityOfTicketToBeUpdated" prefHeight="25.0" prefWidth="344.0"/>
-    <TextArea fx:id="contentOfTicketToBeUpdated" prefHeight="400.0" prefWidth="320.0" promptText="content of ticket"
-              text="content of ticket" wrapText="true"/>
-    <Button onAction="#updateTicketAndSwitchToTicketListScene" prefHeight="30.0" prefWidth="338.0" text="update"/>
+    <TextField fx:id="subjectOfTicketToBeHandled" editable="false" prefHeight="25.0" prefWidth="320.0"
+               promptText="subject" text="subject"/>
+    <TextField fx:id="priorityOfTicketToBeHandled" editable="false" prefHeight="25.0" prefWidth="320.0"
+               promptText="priority" text="priority"/>
+    <ChoiceBox fx:id="statusOfTicketToBeHandled" prefHeight="25.0" prefWidth="344.0"/>
+    <TextArea fx:id="contentOfTicketToBeHandled" editable="false" prefHeight="400.0" prefWidth="320.0"
+              promptText="content of ticket" wrapText="true"/>
+    <Button onAction="#handleTicketAndSwitchToTicketListDevScene" prefHeight="30.0" prefWidth="338.0"
+            text="close ticket"/>
 </VBox>

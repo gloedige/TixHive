@@ -1,14 +1,15 @@
 package de.iav.frontend.controller;
 
-import de.iav.frontend.model.TicketPriority;
-import de.iav.frontend.model.TicketStatus;
-import de.iav.frontend.model.TicketWithoutId;
+import de.iav.frontend.model.*;
+import de.iav.frontend.service.ChoiceBoxService;
 import de.iav.frontend.service.SceneSwitchService;
 import de.iav.frontend.service.TicketService;
+import de.iav.frontend.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -24,24 +25,25 @@ public class AddTicketController implements Initializable {
     @FXML
     private ChoiceBox<String> priorityOfNewTicket = new ChoiceBox<>();
     @FXML
-    private TextField contentOfNewTicket;
+    private TextArea contentOfNewTicket;
 
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
+    private final UserService userService = UserService.getInstance();
+    private final ChoiceBoxService choiceBoxService = new ChoiceBoxService();
+    private AppUser appUser;
 
-
+    public void customInitialize(AppUser appUser) {
+        this.appUser = appUser;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         priorityOfNewTicket.getItems().addAll(TicketPriority.LOW.toString(), TicketPriority.MEDIUM.toString(), TicketPriority.HIGH.toString());
+        priorityOfNewTicket.getSelectionModel().select(0);
     }
+
     @FXML
     public void addTicketButton(ActionEvent event) throws IOException {
-        String selectedValue = priorityOfNewTicket.getValue();
-        TicketPriority selectedPriority;
-        if (selectedValue.equals(TicketPriority.LOW.toString())) {
-            selectedPriority = TicketPriority.LOW;
-        } else if (selectedValue.equals(TicketPriority.MEDIUM.toString())) {
-            selectedPriority = TicketPriority.MEDIUM;
-        } else selectedPriority = TicketPriority.HIGH;
+        TicketPriority selectedPriority = choiceBoxService.stringToTicketPriority(priorityOfNewTicket.getValue());
 
         TicketWithoutId newTicket = new TicketWithoutId(
                     subjectOfNewTicket.getText(),
@@ -50,13 +52,19 @@ public class AddTicketController implements Initializable {
                     contentOfNewTicket.getText(),
                     "1");
 
-        ticketService.addTicket(newTicket);
+        Ticket addedTicket = ticketService.addTicket(newTicket);
+        userService.addTicketToAppUser(appUser.email(), addedTicket.id());
 
-        sceneSwitchService.switchToTicketListScene(event);
+        sceneSwitchService.switchToTicketListScene(event, appUser);
     }
 
     @FXML
     public void switchToTicketListScene(ActionEvent event) throws IOException {
-        sceneSwitchService.switchToTicketListScene(event);
+        sceneSwitchService.switchToTicketListScene(event, appUser);
+    }
+
+    @FXML
+    public void switchToLogoutScene(ActionEvent event) throws IOException {
+        sceneSwitchService.switchToLogoutScene(event);
     }
 }

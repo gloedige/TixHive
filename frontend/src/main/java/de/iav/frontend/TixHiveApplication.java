@@ -10,9 +10,9 @@ import java.io.IOException;
 public class TixHiveApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TixHiveApplication.class.getResource("/de/iav/frontend/fxml/listAllTickets-scene.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TixHiveApplication.class.getResource("/de/iav/frontend/fxml/login-scene.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Ticket List");
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
     }

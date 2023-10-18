@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -36,7 +36,7 @@
             <Font name="Apple Symbols" size="45.0"/>
         </font>
     </Label>
-    <TableView fx:id="table" fixedCellSize="0.0" pickOnBounds="false" prefHeight="539.0" prefWidth="320.0">
+    <TableView fx:id="table" prefHeight="539.0" prefWidth="320.0">
         <columns>
             <TableColumn fx:id="subjectColumn" prefWidth="90.0" resizable="false" text="Subject"/>
             <TableColumn fx:id="priorityColumn" prefWidth="70.0" resizable="false" text="Priority"/>
@@ -46,24 +46,8 @@
     </TableView>
     <HBox>
         <children>
-            <Button alignment="TOP_CENTER" contentDisplay="CENTER" onAction="#switchToAddTicketScene" prefHeight="26.0"
-                    prefWidth="120.0" text="add">
-                <HBox.margin>
-                    <Insets/>
-                </HBox.margin>
-            </Button>
-            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#switchToUpdateTicketScene" prefWidth="120.0"
-                    text="update">
-                <HBox.margin>
-                    <Insets left="30.0"/>
-                </HBox.margin>
-            </Button>
-            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#buttonToSwitchToConfirmDeleteTicketScene"
-                    prefWidth="120.0" text="delete">
-                <HBox.margin>
-                    <Insets left="30.0"/>
-                </HBox.margin>
-            </Button>
+            <Button fx:id="handleTicketButton" mnemonicParsing="false" onAction="#switchToHandleTicketScene"
+                    prefWidth="320.0" text="handle ticket"/>
         </children>
     </HBox>
 </VBox>
