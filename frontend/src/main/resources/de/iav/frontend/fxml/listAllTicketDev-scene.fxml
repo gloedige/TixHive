@@ -38,10 +38,10 @@
     </Label>
     <TableView fx:id="table" prefHeight="539.0" prefWidth="320.0">
         <columns>
-            <TableColumn fx:id="subjectColumn" prefWidth="75.0" text="Subject"/>
-            <TableColumn fx:id="priorityColumn" prefWidth="75.0" text="Priority"/>
-            <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status"/>
-            <TableColumn fx:id="creationDateColumn" prefWidth="90.0" text="Date"/>
+            <TableColumn fx:id="subjectColumn" prefWidth="90.0" resizable="false" text="Subject"/>
+            <TableColumn fx:id="priorityColumn" prefWidth="70.0" resizable="false" text="Priority"/>
+            <TableColumn fx:id="statusColumn" prefWidth="70.0" resizable="false" text="Status"/>
+            <TableColumn fx:id="creationDateColumn" minWidth="2.0" prefWidth="90.0" resizable="false" text="Date"/>
         </columns>
     </TableView>
     <HBox>
