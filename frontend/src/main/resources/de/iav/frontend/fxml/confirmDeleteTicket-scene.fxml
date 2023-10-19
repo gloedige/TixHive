@@ -3,68 +3,102 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.6"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.DeleteTicketController">
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="350.0" prefWidth="420.0" stylesheets="@../css/GlobalStyles.css"
+            xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.iav.frontend.controller.DeleteTicketController">
    <children>
-      <Button layoutX="40.0" layoutY="166.0" mnemonicParsing="false" onAction="#deleteTicketAndSwitchToTicketListScene"
-              prefHeight="26.0" prefWidth="100.0" text="confirm"/>
-      <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutY="8.0" prefHeight="27.0" prefWidth="307.0"
-             text="Confirm deletion of ticket.">
+       <Button layoutX="56.0" layoutY="277.0" mnemonicParsing="false" onAction="#deleteTicketAndSwitchToTicketListScene"
+               prefHeight="26.0" prefWidth="120.0" text="confirm"/>
+       <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="15.0" prefHeight="67.0"
+              prefWidth="400.0" stylesheets="@../css/Label.css" text="DELETE TICKET?" wrapText="true">
          <font>
-            <Font size="21.0"/>
+             <Font size="21.0"/>
          </font>
       </Label>
-      <Button layoutX="170.0" layoutY="166.0" mnemonicParsing="false" onAction="#switchToTicketListScene"
-              prefWidth="100.0" text="back"/>
-      <VBox layoutX="3.0" layoutY="42.0" prefHeight="117.0" prefWidth="300.0">
+       <Button layoutX="245.0" layoutY="277.0" mnemonicParsing="false" onAction="#switchToTicketListScene"
+               prefWidth="120.0" text="back"/>
+       <VBox layoutX="40.0" layoutY="120.0" prefHeight="117.0" prefWidth="350.0">
          <children>
             <HBox prefHeight="25.0" prefWidth="300.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="100.0" text="Subject:"
-                         textAlignment="RIGHT">
+                   <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="100.0" text="SUBJECT:"
+                          textAlignment="RIGHT">
                      <opaqueInsets>
-                        <Insets/>
+                         <Insets/>
                      </opaqueInsets>
                      <HBox.margin>
-                        <Insets/>
+                         <Insets/>
                      </HBox.margin>
                      <padding>
-                        <Insets right="5.0"/>
+                         <Insets right="5.0"/>
                      </padding>
+                       <font>
+                           <Font size="15.0"/>
+                       </font>
                   </Label>
-                  <Label fx:id="ticketToDeleteSubject" contentDisplay="CENTER" prefHeight="20.0" prefWidth="200.0"
-                         text="Label" textAlignment="CENTER"/>
+                   <Label fx:id="ticketToDeleteSubject" contentDisplay="CENTER" prefHeight="20.0" prefWidth="200.0"
+                          text="Label" textAlignment="CENTER">
+                       <HBox.margin>
+                           <Insets left="10.0"/>
+                       </HBox.margin>
+                       <font>
+                           <Font size="15.0"/>
+                       </font>
+                       <opaqueInsets>
+                           <Insets/>
+                       </opaqueInsets>
+                   </Label>
                </children>
             </HBox>
             <HBox prefHeight="25.0" prefWidth="300.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="100.0" text="Priority:"
-                         textAlignment="RIGHT">
+                   <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="100.0" text="PRIORITY:"
+                          textAlignment="RIGHT">
                      <opaqueInsets>
-                        <Insets/>
+                         <Insets/>
                      </opaqueInsets>
                      <padding>
-                        <Insets right="5.0"/>
+                         <Insets right="5.0"/>
                      </padding>
+                       <font>
+                           <Font size="15.0"/>
+                       </font>
                   </Label>
-                  <Label fx:id="ticketToDeletePriority" contentDisplay="CENTER" prefHeight="20.0" prefWidth="200.0"
-                         text="Label" textAlignment="CENTER"/>
+                   <Label fx:id="ticketToDeletePriority" contentDisplay="CENTER" prefHeight="20.0" prefWidth="200.0"
+                          text="Label" textAlignment="CENTER">
+                       <font>
+                           <Font size="15.0"/>
+                       </font>
+                       <HBox.margin>
+                           <Insets left="10.0"/>
+                       </HBox.margin>
+                   </Label>
                </children>
             </HBox>
             <HBox prefHeight="67.0" prefWidth="300.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="100.0" text="Text:"
-                         textAlignment="RIGHT">
+                   <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="100.0" text="CONTENT:"
+                          textAlignment="RIGHT">
                      <opaqueInsets>
-                        <Insets/>
+                         <Insets/>
                      </opaqueInsets>
                      <padding>
-                        <Insets right="5.0"/>
+                         <Insets right="5.0"/>
                      </padding>
+                       <font>
+                           <Font size="15.0"/>
+                       </font>
                   </Label>
-                  <Label fx:id="ticketToDeleteText" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="60.0"
-                         prefWidth="200.0" text="Label" textAlignment="CENTER"/>
+                   <Label fx:id="ticketToDeleteText" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="60.0"
+                          prefWidth="200.0" text="Label" textAlignment="CENTER">
+                       <font>
+                           <Font size="15.0"/>
+                       </font>
+                       <HBox.margin>
+                           <Insets left="10.0"/>
+                       </HBox.margin>
+                   </Label>
                </children>
             </HBox>
          </children>

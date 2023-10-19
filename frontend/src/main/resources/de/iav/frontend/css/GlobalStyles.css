@@ -1,7 +1,6 @@
-/*@import *bootstrapfx.css*;*/
 
 * {
-    /*-fx-font-family: "Roboto", "Helvetica", "Arial", sans-serif;*/
+    -fx-background-color: rgb(255, 255, 255);
 }
 
 .button {
@@ -9,21 +8,44 @@
     -fx-font-family: Arial;
     -fx-text-fill: #faf7f7;
     -fx-font-weight: 900;
-    -fx-background-color: #0093ED;
+    -fx-background-color: linear-gradient(#0093ED, #0074b7);
     -fx-border-style: solid;
     -fx-border-color: #faf7f7;
     -fx-border-radius: 15px;
-
 }
 
 .text-field {
-    -fx-font-size: 20px;
-    -fx-text-fill: #faf7f7;
+    -fx-font-size: 15px;
+    -fx-text-fill: #294566;
     -fx-font-weight: bold;
     -fx-font-style: italic;
     -fx-border-color: #0093ED;
     -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
     -fx-background-color: #faf7f7;
-
 }
 
+.text-area {
+    -fx-font-size: 15px;
+    -fx-text-fill: #171d21;
+    -fx-font-weight: bold;
+    -fx-font-style: normal;
+    -fx-border-color: #0093ED;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-background-color: #faf7f7;
+}
+
+.choice-box {
+    -fx-font-size: 15px;
+    -fx-text-fill: #171d21;
+    -fx-font-weight: bold;
+    -fx-font-style: normal;
+    -fx-border-color: #0093ED;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-background-color: #faf7f7;
+}

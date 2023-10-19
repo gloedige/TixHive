@@ -6,32 +6,33 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.6"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.HandleTicketController">
+<VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" stylesheets="@../css/GlobalStyles.css"
+      xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="de.iav.frontend.controller.HandleTicketController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
     <HBox prefHeight="195.0" prefWidth="320.0">
         <Button mnemonicParsing="false" onAction="#switchToTicketListDeveloperScene" prefHeight="50.0" prefWidth="90.0"
-                text="back">
+                stylesheets="@../css/smallButtonStyle.css" text="back">
             <HBox.margin>
-                <Insets top="10.0"/>
+                <Insets/>
             </HBox.margin>
         </Button>
-        <Pane prefHeight="73.0" prefWidth="211.0">
-            <ImageView fitHeight="64.0" fitWidth="192.0" layoutX="14.0" preserveRatio="true" y="5.0">
+        <Pane prefHeight="73.0" prefWidth="200.0">
+            <ImageView fitHeight="64.0" fitWidth="192.0" layoutX="14.0" layoutY="-15.0" preserveRatio="true" y="5.0">
                 <Image url="@../pictures/Bildschirmfoto2023-08-17um13.16.45.png"/>
             </ImageView>
         </Pane>
         <Button mnemonicParsing="false" onAction="#switchToLogoutScene" prefHeight="50.0" prefWidth="90.0"
-                text="logout">
+                stylesheets="@../css/smallButtonStyle.css" text="logout">
             <HBox.margin>
-                <Insets top="10.0"/>
+                <Insets/>
             </HBox.margin>
         </Button>
     </HBox>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0" text="handle Ticket"
-           textAlignment="CENTER" textFill="#224783">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0"
+           stylesheets="@../css/Label.css" text="handle Ticket" textAlignment="CENTER" textFill="#224783">
         <font>
             <Font name="Apple Symbols" size="45.0"/>
         </font>
