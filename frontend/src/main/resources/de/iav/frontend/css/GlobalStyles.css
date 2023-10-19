@@ -1,0 +1,29 @@
+/*@import *bootstrapfx.css*;*/
+
+* {
+    /*-fx-font-family: "Roboto", "Helvetica", "Arial", sans-serif;*/
+}
+
+.button {
+    -fx-font-size: 20px;
+    -fx-font-family: Arial;
+    -fx-text-fill: #faf7f7;
+    -fx-font-weight: 900;
+    -fx-background-color: #0093ED;
+    -fx-border-style: solid;
+    -fx-border-color: #faf7f7;
+    -fx-border-radius: 15px;
+
+}
+
+.text-field {
+    -fx-font-size: 20px;
+    -fx-text-fill: #faf7f7;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-border-color: #0093ED;
+    -fx-border-radius: 10px;
+    -fx-background-color: #faf7f7;
+
+}
+
