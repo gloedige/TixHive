@@ -32,7 +32,7 @@
         </Button>
     </HBox>
     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0"
-           stylesheets="@../css/Label.css" text="handle Ticket" textAlignment="CENTER" textFill="#224783">
+           stylesheets="@../css/Label.css" text="HANDLE TICKET" textAlignment="CENTER" textFill="#224783">
         <font>
             <Font name="Apple Symbols" size="45.0"/>
         </font>
