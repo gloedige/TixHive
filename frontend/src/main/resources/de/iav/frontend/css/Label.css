@@ -1,0 +1,11 @@
+.label {
+    -fx-font-size: 40px;
+    -fx-text-fill: #005a8d;
+    -fx-font-weight: 900;
+    -fx-font-style: normal;
+    -fx-font-family: "Gill Sans";
+    -fx-background-color: #ffffff;
+    -fx-border-color: #005a8d;
+    -fx-border-width: 5px;
+    -fx-border-radius: 15px;
+}

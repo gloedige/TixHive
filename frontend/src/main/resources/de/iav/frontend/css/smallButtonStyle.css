@@ -1,0 +1,11 @@
+.button {
+    -fx-font-size: 15px;
+    -fx-font-family: Arial;
+    -fx-text-fill: #faf7f7;
+    -fx-font-weight: 900;
+    -fx-background-color: linear-gradient(#0093ED, #0074b7);
+    -fx-border-style: solid;
+    -fx-border-color: #faf7f7;
+    -fx-border-radius: 15px;
+
+}

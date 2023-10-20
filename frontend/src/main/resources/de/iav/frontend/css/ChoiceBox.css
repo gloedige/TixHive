@@ -1,0 +1,21 @@
+
+.choice-box .menu-item:focused {
+    -fx-background-color: rgb(0, 147, 237);
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: black;
+}
+
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: white;
+    -fx-background-color: rgb(0, 147, 237);
+}
+
+.choice-box {
+    -fx-font-size: 15px;
+    -fx-border-color: #0093ED;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+}

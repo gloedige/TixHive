@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="TOP_CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.6"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.LoginController">
+<VBox alignment="TOP_CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" stylesheets="@../css/GlobalStyles.css"
+      xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="de.iav.frontend.controller.LoginController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
     <HBox prefHeight="81.0" prefWidth="320.0">
-        <Pane prefHeight="81.0" prefWidth="311.0">
-            <ImageView fitHeight="145.0" fitWidth="360.0" layoutX="-20.0" layoutY="-5.0" preserveRatio="true" y="5.0">
+        <Pane prefHeight="200.0" prefWidth="311.0">
+            <ImageView fitHeight="200.0" fitWidth="360.0" layoutX="-20.0" layoutY="-25.0" preserveRatio="true" y="5.0">
                 <Image url="@../pictures/Bildschirmfoto2023-08-17um13.16.45.png"/>
             </ImageView>
             <HBox.margin>
@@ -21,24 +22,31 @@
             </HBox.margin>
         </Pane>
     </HBox>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0" text="login"
-           textAlignment="CENTER" textFill="#224783">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0"
+           stylesheets="@../css/Label.css" text="LOGIN" textAlignment="CENTER" textFill="#224783">
         <font>
             <Font name="Apple Symbols" size="45.0"/>
         </font>
         <VBox.margin>
-            <Insets top="50.0"/>
+            <Insets top="60.0"/>
         </VBox.margin>
     </Label>
-    <TextField fx:id="usernameInput" promptText="email"/>
+    <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="131.0" maxHeight="30.0"
+           prefHeight="30.0" prefWidth="320.0" textAlignment="CENTER">
+        <font>
+            <Font name="Apple Symbols" size="15.0"/>
+        </font>
+        <VBox.margin>
+            <Insets top="30.0"/>
+        </VBox.margin>
+    </Label>
+    <TextField fx:id="usernameInput" promptText="email">
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+    </TextField>
     <PasswordField fx:id="passwordInput" promptText="password"/>
     <Button onAction="#onLoginClick" prefHeight="30.0" prefWidth="338.0" text="login"/>
     <Button layoutX="30.0" layoutY="337.0" onAction="#onRegisterClick" prefHeight="30.0" prefWidth="338.0"
             text="register"/>
-    <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="131.0"
-           prefHeight="20.0" prefWidth="320.0" textAlignment="CENTER">
-        <font>
-            <Font name="Apple Symbols" size="13.0"/>
-        </font>
-    </Label>
 </VBox>

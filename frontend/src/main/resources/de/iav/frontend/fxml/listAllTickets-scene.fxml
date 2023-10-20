@@ -6,37 +6,49 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.6"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.ListTicketController">
+<VBox alignment="CENTER" prefHeight="640.0" prefWidth="360.0" spacing="20.0" style="-fx-background-color: white;"
+      xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="de.iav.frontend.controller.ListTicketController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <HBox prefHeight="195.0" prefWidth="320.0">
+    <HBox prefHeight="195.0" prefWidth="320.0" stylesheets="@../css/GlobalStyles.css">
         <children>
-            <Pane prefHeight="73.0" prefWidth="211.0">
+            <Pane prefHeight="68.0" prefWidth="204.0">
                 <children>
-                    <ImageView fitHeight="64.0" fitWidth="192.0" layoutX="14.0" preserveRatio="true" x="65.0" y="5.0">
+                    <ImageView fitHeight="64.0" fitWidth="192.0" layoutX="14.0" layoutY="-10.0" preserveRatio="true"
+                               x="65.0" y="5.0">
                         <image>
                             <Image url="@../pictures/Bildschirmfoto2023-08-17um13.16.45.png"/>
                         </image>
                     </ImageView>
                 </children>
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
             </Pane>
             <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToLogoutScene" prefHeight="50.0"
-                    prefWidth="66.0" text="logout">
+                    prefWidth="90.0" stylesheets="@../css/smallButtonStyle.css" text="logout">
                 <HBox.margin>
-                    <Insets left="44.0" top="10.0"/>
+                    <Insets left="50.0"/>
                 </HBox.margin>
+                <font>
+                    <Font size="12.0"/>
+                </font>
             </Button>
         </children>
     </HBox>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0" text="ticket list"
-           textAlignment="CENTER" textFill="#224783">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="320.0"
+           stylesheets="@../css/Label.css" text="TICKET LIST" textAlignment="CENTER" textFill="#224783">
         <font>
-            <Font name="Apple Symbols" size="45.0"/>
+            <Font name="Arial Unicode MS" size="31.0"/>
         </font>
+        <VBox.margin>
+            <Insets top="-50.0"/>
+        </VBox.margin>
     </Label>
-    <TableView fx:id="table" fixedCellSize="0.0" pickOnBounds="false" prefHeight="539.0" prefWidth="320.0">
+    <TableView fx:id="table" fixedCellSize="0.0" pickOnBounds="false" prefHeight="450.0" prefWidth="320.0"
+               stylesheets="@../css/ListStyles.css">
         <columns>
             <TableColumn fx:id="subjectColumn" prefWidth="90.0" resizable="false" text="Subject"/>
             <TableColumn fx:id="priorityColumn" prefWidth="70.0" resizable="false" text="Priority"/>
@@ -44,24 +56,24 @@
             <TableColumn fx:id="creationDateColumn" minWidth="2.0" prefWidth="90.0" resizable="false" text="Date"/>
         </columns>
     </TableView>
-    <HBox>
+    <HBox stylesheets="@../css/GlobalStyles.css">
         <children>
             <Button alignment="TOP_CENTER" contentDisplay="CENTER" onAction="#switchToAddTicketScene" prefHeight="26.0"
-                    prefWidth="120.0" text="add">
+                    prefWidth="140.0" text="add">
                 <HBox.margin>
                     <Insets/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#switchToUpdateTicketScene" prefWidth="120.0"
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#switchToUpdateTicketScene" prefWidth="140.0"
                     text="update">
                 <HBox.margin>
-                    <Insets left="30.0"/>
+                    <Insets left="15.0"/>
                 </HBox.margin>
             </Button>
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#buttonToSwitchToConfirmDeleteTicketScene"
-                    prefWidth="120.0" text="delete">
+                    prefWidth="140.0" text="delete">
                 <HBox.margin>
-                    <Insets left="30.0"/>
+                    <Insets left="15.0"/>
                 </HBox.margin>
             </Button>
         </children>
