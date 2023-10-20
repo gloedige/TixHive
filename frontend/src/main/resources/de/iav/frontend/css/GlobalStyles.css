@@ -37,15 +37,3 @@
     -fx-border-width: 2px;
     -fx-background-color: #faf7f7;
 }
-
-.choice-box {
-    -fx-font-size: 15px;
-    -fx-text-fill: #171d21;
-    -fx-font-weight: bold;
-    -fx-font-style: normal;
-    -fx-border-color: #0093ED;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-border-width: 2px;
-    -fx-background-color: #faf7f7;
-}
